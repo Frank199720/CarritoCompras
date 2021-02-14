@@ -7,6 +7,6 @@
     </div>
     <div class="card-header">
         <button type="button" class="btn btn-success" (click)="agregar()">Agregar</button>
-
+        <p *ngFor="let item of carrito.data">{{item.superhero}}</p>    
     </div>
 </div>
