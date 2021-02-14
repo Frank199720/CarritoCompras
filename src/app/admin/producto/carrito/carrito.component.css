@@ -1,10 +1,6 @@
-.example-card {
-    max-width: 400px;
-}
-
-.example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
+img.mat-card-image{
+    align-content: center;
+    margin: 0;
 }
 
 mat-card-content{
@@ -15,3 +11,57 @@ mat-card-content{
 mat-card-footer{
     padding: 20px;
 }
+
+mat-card{
+    margin: 5px;
+    padding: 0px;
+}
+mat-card-content{
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+.expand{
+    width: 100%;
+    margin-right: 5px;
+}
+mat-list{
+    padding: 0;
+}
+mat-card-title{
+    text-align: center;
+    color: white;
+    background-color: teal;
+    margin: 0;
+}
+mat-card-content{
+    background-color: steelblue;
+    border-bottom:  solid 1px;
+    border-bottom-color: gray;
+}
+mat-card-footer{
+    padding: 0;
+    margin: 0;
+}
+mat-card-subtitle{
+    font-weight: bold;
+}
+button.mat-stroked-button{
+    border-color: teal;
+    color: teal;
+}
+button.mat-stroked-button:hover{
+    background-color: teal;
+    color: white;
+}
+button.mat-raised-button{
+    background-color: teal;
+    color: white;
+    width: 100%;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+button.mat-raised-button:hover{
+    color: rgba(255, 255, 255, 1) !important;
+  box-shadow: 0 4px 16px rgba(49, 138, 172, 1);
+  transition: all 0.2s ease;
+  }
