@@ -9,6 +9,8 @@ import { ProductoComponent } from './producto/producto.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../material/material.module';
 import { ProductoindiComponent } from './producto/productoindi/productoindi.component';
+import { CarritoComponent } from './producto/carrito/carrito.component';
+
 
 
 
@@ -18,7 +20,8 @@ import { ProductoindiComponent } from './producto/productoindi/productoindi.comp
     SidebarComponent,
     AdminComponent,
     ProductoComponent,
-    ProductoindiComponent],
+    ProductoindiComponent,
+    CarritoComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
