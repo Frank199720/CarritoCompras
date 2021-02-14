@@ -16,16 +16,19 @@ export class ProductoindiComponent implements OnInit {
   }
   arreglo=[];
   addtoCar(){
-    let array = localStorage.getItem("arreglo");
-    if(array){
-      this.arreglo = JSON.parse(array);
+    if(this.prueba.cantidad!=0){
+      let array = localStorage.getItem("arreglo");
+      if(array){
+        this.arreglo = JSON.parse(array);
+      }
+      this.carrito.numeroVentas++;
+      console.log(this.arreglo);
+      this.arreglo.push(this.prueba);
+      localStorage.setItem("arreglo",JSON.stringify(this.arreglo));
+      this.carrito.addCarrito();
+      console.log(this.prueba);
+      console.log(this.prueba.cantidad);
     }
-    this.carrito.numeroVentas++;
-    console.log(this.arreglo);
-    this.arreglo.push(this.prueba);
-    localStorage.setItem("arreglo",JSON.stringify(this.arreglo));
-    this.carrito.addCarrito();
-    console.log(this.prueba);
-    console.log(this.prueba.cantidad);
+    
   }
 }
