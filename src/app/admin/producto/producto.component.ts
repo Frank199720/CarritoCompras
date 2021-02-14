@@ -15,7 +15,7 @@ export class ProductoComponent implements OnInit {
     
     this.pruebaService.getPrueba().subscribe((data: Prueba[]) => {
       this.prueba = data;
-      console.log(this.prueba[0].superhero);
+      
     });
     
   }

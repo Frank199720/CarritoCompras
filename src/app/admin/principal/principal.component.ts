@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Prueba } from 'src/app/interfaces/prueba';
+import { CarService } from 'src/app/services/car.service';
 
 @Component({
   selector: 'app-principal',
@@ -7,14 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrincipalComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(public carrito:CarService) { }
+  
   ngOnInit(): void {
-    let items = localStorage.getItem("arreglo")
-    this.datos = JSON.parse(items);
+    console.log(this.carrito.data);
   }
 
-  datos = [];
+  datos:Prueba[];
 
   arreglo = [{
     nombre: "Maggie",
