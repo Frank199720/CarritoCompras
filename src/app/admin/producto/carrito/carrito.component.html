@@ -2,13 +2,13 @@
     <mat-list>
         <mat-card-title><i class="fas fa-shopping-cart"></i> Bolsa de compras</mat-card-title>
         <mat-card-content>
-            <mat-card *ngFor="let item of compras">
+            <mat-card *ngFor="let item of carritoService.data">
                 <mat-grid-list cols="6" rowHeight="50px">
                     <mat-grid-tile
                         colspan="1"
                         rowspan="2"
                     >
-                        1
+                        {{item.cantidad}}
                     </mat-grid-tile>
                     <mat-grid-tile
                         colspan="1"
@@ -22,7 +22,7 @@
                         rowspan="1"
                         
                     >
-                    descripcion
+                    {{item.superhero}}
                     </mat-grid-tile>
                       
                     <mat-grid-tile
