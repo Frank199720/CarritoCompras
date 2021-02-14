@@ -1,0 +1,45 @@
+<div>
+    <mat-list>
+        <mat-card-subtitle>Bolsa de compras</mat-card-subtitle>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <mat-card *ngFor="let item of compras">
+                <mat-grid-list cols="6">
+                    <mat-grid-tile
+                        colspan="1"
+
+                    >
+                        1
+                    </mat-grid-tile>
+                    <mat-grid-tile
+                        colspan="1"
+                        
+                    >
+                        imagen
+                    </mat-grid-tile>
+                    <mat-grid-tile
+                        colspan="3"
+                        
+                    >
+                        descripcion
+                    </mat-grid-tile>
+                    <mat-grid-tile
+                        colspan="1"
+                        
+                    >
+                        borrar
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-footer>
+            <mat-card-subtitle>TOTAL</mat-card-subtitle>
+            <button mat-stroked-button color="primary">Cerrar</button>
+            <button mat-raised-button color="primary">Ir a la bolsa</button>
+        </mat-card-footer>
+        
+    </mat-list>
+
+    
+</div>

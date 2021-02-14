@@ -5,8 +5,7 @@ import { CarService } from 'src/app/services/car.service';
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.component.html',
-  styles: [
-  ]
+  styleUrls: ['./principal.component.css']
 })
 export class PrincipalComponent implements OnInit {
 
