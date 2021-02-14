@@ -13,6 +13,8 @@ import { ProductoindiComponent } from './producto/productoindi/productoindi.comp
 import { ImagenPipe } from './producto/pipes/imagen.pipe';
 import { FormsModule } from '@angular/forms';
 import { CarritoComponent } from './producto/carrito/carrito.component';
+import { CompraComponent } from './compra/compra.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
 
 
 
@@ -26,7 +28,9 @@ import { CarritoComponent } from './producto/carrito/carrito.component';
     ProductoComponent,
     ProductoindiComponent,
     ImagenPipe,
-    CarritoComponent],
+    CarritoComponent,
+    CompraComponent,
+    AuthenticationComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

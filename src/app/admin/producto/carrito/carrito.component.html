@@ -8,7 +8,8 @@
                         colspan="1"
                         rowspan="2"
                     >
-                        {{item.cantidad}}
+                    <input type="number" class="form-control" value="{{item.cantidad}}">
+                        
                     </mat-grid-tile>
                     <mat-grid-tile
                         colspan="1"
@@ -62,7 +63,7 @@
                 </mat-grid-tile>
                 <mat-grid-tile
                 colspan="4">
-                    <button type="button" mat-raised-button>Ir a la bolsa</button>
+                    <button type="button" mat-raised-button (click)="goToShop()">Ir a la bolsa</button>
                 </mat-grid-tile>
             </mat-grid-list>
             

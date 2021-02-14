@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CarService } from '../../../services/car.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { CarService } from '../../../services/car.service';
 })
 export class CarritoComponent implements OnInit {
 
-  constructor(public carritoService:CarService) { }
+  constructor(public carritoService:CarService, private router:Router) { }
 
   compras=[];
 
@@ -18,6 +19,10 @@ export class CarritoComponent implements OnInit {
     this.compras = JSON.parse(items);
     console.log(this.compras);
     this.carritoService.addCarrito();
+  }
+  
+  goToShop(){
+    this.router.navigateByUrl('/shop/compra');
   }
 
 }
