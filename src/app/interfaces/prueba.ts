@@ -5,7 +5,7 @@ export interface Prueba {
     alter_ego:        string;
     first_appearance: string;
     characters:       string;
-      
+    cantidad:number;
 }
 export enum Publisher {
     DCComics = "DC Comics",

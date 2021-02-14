@@ -13,4 +13,9 @@ export class PruebaService {
    getPrueba(){
      return this.http.get("http://localhost:3000/heroes");
    }
+   getBusqueda( termino:String){
+    return this.http.get(`http://localhost:3000/heroes?q=${termino}`)
+   
+   }
+     
 }

@@ -26,5 +26,6 @@ export class ProductoindiComponent implements OnInit {
     localStorage.setItem("arreglo",JSON.stringify(this.arreglo));
     this.carrito.addCarrito();
     console.log(this.prueba);
+    console.log(this.prueba.cantidad);
   }
 }

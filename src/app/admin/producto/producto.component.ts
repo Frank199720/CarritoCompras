@@ -9,6 +9,7 @@ import { PruebaService } from 'src/app/services/prueba.service';
 })
 export class ProductoComponent implements OnInit {
   prueba: Prueba[]= [];
+  termino:string;
   constructor( private pruebaService:PruebaService) { }
   
   ngOnInit(): void {
@@ -19,5 +20,24 @@ export class ProductoComponent implements OnInit {
     });
     
   }
-
+  buscando(){
+    if(this.termino==''){
+      this.pruebaService.getPrueba().subscribe((data: Prueba[]) => {
+        this.prueba = data;
+        
+      });
+    }
+    this.pruebaService.getBusqueda(this.termino).subscribe((data: Prueba[]) => {
+      this.prueba = data;
+      
+    });
+    console.log("xd")
+  }
+  clear(){
+    this.termino="";
+    this.pruebaService.getPrueba().subscribe((data: Prueba[]) => {
+      this.prueba = data;
+      
+    });
+  }
 }

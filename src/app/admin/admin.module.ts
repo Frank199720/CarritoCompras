@@ -9,6 +9,8 @@ import { ProductoComponent } from './producto/producto.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../material/material.module';
 import { ProductoindiComponent } from './producto/productoindi/productoindi.component';
+import { ImagenPipe } from './producto/pipes/imagen.pipe';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -18,12 +20,14 @@ import { ProductoindiComponent } from './producto/productoindi/productoindi.comp
     SidebarComponent,
     AdminComponent,
     ProductoComponent,
-    ProductoindiComponent],
+    ProductoindiComponent,
+    ImagenPipe],
   imports: [
     CommonModule,
     AdminRoutingModule,
     FlexLayoutModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ]
 })
 export class AdminModule { }
