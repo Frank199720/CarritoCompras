@@ -8,6 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import { MatGridListModule } from '@angular/material/grid-list';
 
@@ -26,6 +29,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatIconModule,
     MatGridListModule,
+    MatStepperModule,
+    MatRadioModule,
+    MatButtonToggleModule,
   ],
 })
 export class MaterialModule {}

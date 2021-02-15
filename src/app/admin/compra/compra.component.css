@@ -1,0 +1,57 @@
+img.mat-card-image{
+    margin: 0px;
+    padding: 0px;
+    width: 150px;
+}
+i{
+    color: gray;
+}
+p{
+    margin: 0px;
+}
+mat-card{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+mat-horizontal-stepper{
+    background-color: #F4F4F4;
+}
+
+mat-list{
+    overflow-y: scroll;
+    max-height: 500px;
+}
+
+mat-card-title{
+    margin: 0px;
+}
+mat-card-subtitle{
+    margin: 0px;
+}
+
+.div-hor{
+    border-right: solid 1px grey;
+}
+
+mat-form-field{
+    width: 80%;
+}
+
+.totales{
+    color: black;
+    font-weight: bolder;
+}
+.input-pago-lg{
+    width: 90%;
+}
+.align-left{
+    width: 100%;
+    text-align: left;
+    margin-left: 10px;
+}
+.align-right{
+    width: 100%;
+    text-align: right;
+    margin-right: 10px;
+}
