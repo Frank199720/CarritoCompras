@@ -9,6 +9,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import { MatGridListModule } from '@angular/material/grid-list';
 
@@ -27,7 +30,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatIconModule,
     MatGridListModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule,
+    MatRadioModule,
+    MatButtonToggleModule,
   ],
 })
 export class MaterialModule {}

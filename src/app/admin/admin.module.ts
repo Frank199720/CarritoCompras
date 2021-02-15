@@ -11,7 +11,7 @@ import { MaterialModule } from '../material/material.module';
 import { ProductoindiComponent } from './producto/productoindi/productoindi.component';
 
 import { ImagenPipe } from './producto/pipes/imagen.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarritoComponent } from './producto/carrito/carrito.component';
 import { CompraComponent } from './compra/compra.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
@@ -36,7 +36,8 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     AdminRoutingModule,
     FlexLayoutModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

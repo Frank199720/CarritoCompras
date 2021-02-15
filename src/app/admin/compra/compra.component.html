@@ -1,1 +1,424 @@
-<p>compra works!</p>
+<mat-horizontal-stepper linear #stepper>
+    <mat-step>
+        <ng-template matStepLabel>Bolsa de compra</ng-template>
+        <mat-card *ngFor="let item of prueba">
+            <mat-grid-list cols="12" rowHeight="25px">
+                <mat-grid-tile colspan="2" rowspan="4">
+                    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+                </mat-grid-tile>
+                <mat-grid-tile colspan="5" rowspan="4">
+                   
+                    <p class="align-left">descripcion</p>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="2">
+                    <p class="align-left">CANTIDAD
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="2">
+                    <input matInput type="number" value="1">
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="4">
+                    <a type="button"><i class="fas fa-trash-alt fa-2x"></i></a>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="1">
+                    <p class="align-left">Precio unidad</p>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="1">
+                    <p class="align-right">S/ 50.00</p> 
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="1">
+                    <p class="align-left">Precio total</p>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="1">
+                    <p class="align-right">S/ 100.00</p> 
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card>
+        <mat-grid-list cols="12">
+            <mat-grid-tile colspan="12">
+                <button mat-flat-button matStepperNext color="primary">Continuar con mi compra</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Despacho</ng-template>
+        <div class="row">
+            <div class="col-8 div-hor">
+                <mat-grid-list cols="2" rowHeight="80px">
+                    <mat-grid-tile colspan="2">
+                        <p>¿Con cuál método de entrega quieres recibir tu producto?</p>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1">
+                        <div class="example-button-container">
+                            <button mat-fab color="primary" aria-label="Example icon button with a home icon" (click)="delivery=true">
+                                <mat-icon>home</mat-icon>
+                            </button>
+                        </div>
+                        <p class="align-left">Despacho a domicilio</p>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1">
+                        <div class="example-button-container">
+                            <button mat-fab color="primary" aria-label="Example icon button with a home icon" (click)="delivery=false">
+                                <mat-icon>location_on</mat-icon>
+                            </button>
+                        </div>
+                        <p class="align-left">Retiro en tienda</p>
+                    </mat-grid-tile>
+                    
+                    <div *ngIf="delivery">
+                            <mat-grid-tile colspan="2">
+                                <p>Dirección</p>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="1">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Direccion</mat-label>
+                                    <input matInput type="text" [formControl]="direccion">
+                                    <mat-error *ngIf="direccion.hasError('required')">Ingrese direccion</mat-error>
+                                  </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="1">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Departamento</mat-label>
+                                    <select matNativeControl [formControl]="departamento">
+                                        <option value="1">poner</option>
+                                        <option value="2">poner</option>
+                                    </select>
+                                    <mat-error *ngIf="departamento.hasError('required')">Seleccione departamento</mat-error>
+                                  </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="1">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Provincia</mat-label>
+                                    <select matNativeControl [formControl]="provincia">
+                                        <option value="1">poner</option>
+                                        <option value="2">poner</option>
+                                    </select>
+                                    <mat-error *ngIf="provincia.hasError('required')">Seleccione provincia</mat-error>
+                                  </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="1">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Distrito</mat-label>
+                                    <select matNativeControl [formControl]="distrito">
+                                        <option value="1">poner</option>
+                                        <option value="2">poner</option>
+                                    </select>
+                                    <mat-error *ngIf="distrito.hasError('required')">Seleccione distrito</mat-error>
+                                  </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="1">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Telefono</mat-label>
+                                    <input matInput type="text" [formControl]="telefonoFijo">
+                                    <mat-error *ngIf="telefonoFijo.hasError('required')">Ingrese telefono</mat-error>
+                                  </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="1">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Celular</mat-label>
+                                    <input matInput type="text" [formControl]="celular">
+                                    <mat-error *ngIf="celular.hasError('required')">Ingrese celular</mat-error>
+                                  </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile colspan="2">
+                                <p>Valor del delivery: S/ 10.00</p>
+                            </mat-grid-tile>
+                    </div>
+                    <div *ngIf="!delivery">
+                        <mat-grid-tile colspan="2">
+                            <p>La Libertad 13011 - Trujillo</p>
+                        </mat-grid-tile>
+                    </div>
+                </mat-grid-list>
+            </div>
+        
+            <div class="col-4">
+                <mat-list>
+                    <mat-card-content *ngFor="let item of prueba">
+                            <mat-grid-list cols="6" rowHeight="25px">
+                                <mat-grid-tile colspan="2" rowspan="4">
+                                    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                                        alt="Photo of a Shiba Inu">
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="4" rowspan="1">
+                                    <mat-card-title>descripcion</mat-card-title>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="2" rowspan="1">
+                                    <mat-card-subtitle class="align-left">Cantidad</mat-card-subtitle>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="2" rowspan="1">
+                                    <mat-card-subtitle class="align-right">2</mat-card-subtitle>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="2" rowspan="1">
+                                    <mat-card-subtitle class="align-left">Precio Unitario</mat-card-subtitle>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="2" rowspan="1">
+                                    <mat-card-subtitle class="align-right">S/ 30.00</mat-card-subtitle>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="2" rowspan="1">
+                                    <mat-card-subtitle class="align-left">Subtotal</mat-card-subtitle>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="2" rowspan="1">
+                                    <mat-card-subtitle class="align-right">S/ 60.00</mat-card-subtitle>
+                                </mat-grid-tile>
+                            </mat-grid-list><br>
+                            <mat-divider></mat-divider>
+                    </mat-card-content>
+                </mat-list>
+                <mat-card-footer>
+                    <mat-grid-list cols="6" rowHeight="50px">
+                        <mat-grid-tile colspan="3">
+                            <mat-card-subtitle class="totales align-left">TOTAL NORMAL:</mat-card-subtitle>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3">
+                            <mat-card-subtitle class="totales align-right">S/ 123.00</mat-card-subtitle>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="6">
+                            <button type="button" mat-flat-button matStepperNext color="primary">Continuar</button>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </mat-card-footer>
+                
+            </div>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Pago</ng-template>
+        <div class="row">
+            <div class="col-8 div-hor">
+                <mat-grid-list cols="2" rowHeight="80px">
+                    <mat-grid-tile colspan="2">
+                        <p>Seleccione comprobante de pago</p>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1">
+                        <div class="example-button-container">
+                            <button mat-fab color="primary" aria-label="Example icon button with a home icon" (click)="boleta=true">
+                                <mat-icon>person</mat-icon>
+                            </button>
+                        </div>
+                        <p class="align-left">Boleta</p>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1">
+                        <div class="example-button-container">
+                            <button mat-fab color="primary" aria-label="Example icon button with a home icon" (click)="boleta=false">
+                                <mat-icon>corporate_fare</mat-icon>
+                            </button>
+                        </div>
+                        <p class="align-left">Factura</p>
+                    </mat-grid-tile>
+                    
+                    <div *ngIf="boleta">
+                        <mat-grid-tile colspan="2">
+                            <mat-form-field appearance="fill" class="input-pago-lg">
+                                <mat-label>Nombre cliente</mat-label>
+                                <input matInput type="text" value="nombre" disabled>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <mat-form-field appearance="fill" class="input-pago-lg">
+                                <mat-label>Email cliente</mat-label>
+                                <input matInput type="email" value="email@example.com" disabled>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Doc cliente</mat-label>
+                                <input matInput type="text" value="DNI: 12345678" disabled>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Celular</mat-label>
+                                <input matInput type="text" value="123456789" disabled>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                    </div>
+                    <div *ngIf="!boleta">
+                        <mat-grid-tile colspan="2">
+                            <mat-form-field appearance="fill" class="input-pago-lg">
+                                <mat-label>Nombre representante</mat-label>
+                                <input matInput type="text" value="nombre" disabled>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <mat-form-field appearance="fill" class="input-pago-lg">
+                                <mat-label>Email cliente</mat-label>
+                                <input matInput type="email" value="email@example.com" disabled>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <mat-form-field appearance="fill" class="input-pago-lg">
+                                <mat-label>Razón social</mat-label>
+                                <input matInput type="text">
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Doc cliente</mat-label>
+                                <input matInput type="text" placeholder="RUC: ">
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Celular</mat-label>
+                                <input matInput type="text" value="123456789" disabled>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                    </div>
+                </mat-grid-list>
+            </div>
+            <div class="col-4">
+                <mat-list>
+                    <mat-card-content *ngFor="let item of prueba">
+                            <mat-grid-list cols="6" rowHeight="25px">
+                                <mat-grid-tile colspan="2" rowspan="4">
+                                    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                                        alt="Photo of a Shiba Inu">
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="4" rowspan="1">
+                                    <mat-card-title>descripcion</mat-card-title>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="2" rowspan="1">
+                                    <mat-card-subtitle class="align-left">Cantidad</mat-card-subtitle>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="2" rowspan="1">
+                                    <mat-card-subtitle class="align-right">2</mat-card-subtitle>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="2" rowspan="1">
+                                    <mat-card-subtitle class="align-left">Precio Unitario</mat-card-subtitle>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="2" rowspan="1">
+                                    <mat-card-subtitle class="align-right">S/ 30.00</mat-card-subtitle>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="2" rowspan="1">
+                                    <mat-card-subtitle class="align-left">Subtotal</mat-card-subtitle>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan="2" rowspan="1">
+                                    <mat-card-subtitle class="align-right">S/ 60.00</mat-card-subtitle>
+                                </mat-grid-tile>
+                            </mat-grid-list><br>
+                            <mat-divider></mat-divider>
+                    </mat-card-content>
+                </mat-list>
+                <mat-card-footer>
+                    <mat-grid-list cols="6" rowHeight="30px">
+                        <mat-grid-tile colspan="3">
+                            <mat-card-subtitle class="totales align-left">TOTAL NORMAL: </mat-card-subtitle>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3">
+                            <mat-card-subtitle class="totales align-right">S/ 123.00</mat-card-subtitle>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3">
+                            <mat-card-subtitle class="totales align-left">DELIVERY: </mat-card-subtitle>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3">
+                            <mat-card-subtitle class="totales align-right">S/ 0.00</mat-card-subtitle>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3">
+                            <mat-card-subtitle class="totales align-left">TOTAL: </mat-card-subtitle>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="3">
+                            <mat-card-subtitle class="totales align-right">S/ 123.00</mat-card-subtitle>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="6" rowspan="2">
+                            <button type="button" mat-flat-button matStepperNext color="primary">Continuar</button>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </mat-card-footer>
+            </div>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Confirmación</ng-template>
+        <mat-grid-list cols="2" rowHeight="20px">
+            <mat-grid-tile colspan="2">
+                <p class="align-left">Fecha:</p> 
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <p class="align-left">Tienda: online</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <p class="align-left">Factura Nro: 010 154896</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <p class="align-left">Doc Cliente: DNI: 12345678</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <p class="align-left">Nombre Cliente: Alexander Silvera</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <p class="align-left">Email Cliente: alguien@example.com</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <p class="align-left">Celular: 123456789</p>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-divider></mat-divider>
+        <mat-grid-list cols="12" rowHeight="40px" class="totales">
+            <mat-grid-tile colspan="2">
+                CODIGO
+            </mat-grid-tile>
+            <mat-grid-tile colspan="5">
+                DESCRIPCION DEL PRODUCTO
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1">
+                CANTIDAD
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                PRECIO U.
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                SUBTOTAL
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-divider></mat-divider>
+        <mat-grid-list cols="12" rowHeight="30px">
+            <div *ngFor="let item of prueba">
+                <mat-grid-tile colspan="2">
+                    000001
+                </mat-grid-tile>
+                <mat-grid-tile colspan="5">
+                    <p class="align-left">Colchon</p>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                    1
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2">
+                    <p class="align-right">S/ 50.00</p>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2">
+                    <p class="align-right">S/ 50.00</p>
+                </mat-grid-tile>
+            </div>
+        </mat-grid-list>
+        <mat-divider></mat-divider>
+        <mat-grid-list cols="12" rowHeight="30px">
+            <mat-grid-tile colspan="6" rowspan="4">
+                <p class="align-left">Gracias por su preferencia</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" class="totales">
+                <p class="align-left">TOTAL NORMAL</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" class="totales">
+                <p class="align-right">S/ 500.00</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" class="totales">
+                <p class="align-left">DELIVERY</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" class="totales">
+                <p class="align-right">S/ 0.00</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" class="totales">
+                <p class="align-left">TOTAL</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" class="totales">
+                <p class="align-right">S/ 500.00</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="12" rowspan="2">
+                <button type="button" mat-flat-button matStepperNext color="primary">Confirmar</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-step>
+</mat-horizontal-stepper>
+
+
+
