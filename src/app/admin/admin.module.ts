@@ -15,6 +15,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarritoComponent } from './producto/carrito/carrito.component';
 import { CompraComponent } from './compra/compra.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { HeaderpComponent } from './perfil/headerp/headerp.component';
+import { SidebarpComponent } from './perfil/sidebarp/sidebarp.component';
+import { DatosComponent } from './perfil/contenido/datos/datos.component';
+import { PasswordComponent } from './perfil/contenido/password/password.component';
+import { ComprasComponent } from './perfil/contenido/compras/compras.component';
+import { DetalleCompraComponent } from './perfil/contenido/detalle-compra/detalle-compra.component';
 
 
 
@@ -30,7 +37,14 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     ImagenPipe,
     CarritoComponent,
     CompraComponent,
-    AuthenticationComponent],
+    AuthenticationComponent,
+    PerfilComponent,
+    HeaderpComponent,
+    SidebarpComponent,
+    DatosComponent,
+    PasswordComponent,
+    ComprasComponent,
+    DetalleCompraComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

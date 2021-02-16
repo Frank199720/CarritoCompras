@@ -6,6 +6,9 @@ img.mat-card-image{
 i{
     color: gray;
 }
+i:hover{
+    color: teal;
+}
 p{
     margin: 0px;
 }

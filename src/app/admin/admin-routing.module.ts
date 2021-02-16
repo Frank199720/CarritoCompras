@@ -6,6 +6,12 @@ import { AdminComponent } from './admin-component';
 import { ProductoComponent } from './producto/producto.component';
 import { CompraComponent } from './compra/compra.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { DatosComponent } from './perfil/contenido/datos/datos.component';
+import { PasswordComponent } from './perfil/contenido/password/password.component';
+import { ComprasComponent } from './perfil/contenido/compras/compras.component';
+import { DetalleCompraComponent } from './perfil/contenido/detalle-compra/detalle-compra.component';
+
 
 const routes:Routes =[
   {
@@ -18,7 +24,16 @@ const routes:Routes =[
       
     ]
   },
-  {path:'auth',component:AuthenticationComponent}
+  {path:'auth',component:AuthenticationComponent},
+  { path:'perfil', component:PerfilComponent,
+    children:[
+      { path:'datos', component:DatosComponent },
+      { path:'contraseña', component:PasswordComponent },
+      { path:'compras', component:ComprasComponent },
+      { path:'detalleCompra', component:DetalleCompraComponent }
+
+    ]
+  }
 ]
 
 

@@ -20,7 +20,7 @@ export class CompraComponent implements OnInit {
 
   prueba =[];
   delivery:Boolean=true;
-  boleta:Boolean=false;
+  boleta:Boolean=true;
 
   direccion = new FormControl('',[Validators.required]);
   departamento = new FormControl('',[Validators.required]);

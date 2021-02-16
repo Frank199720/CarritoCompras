@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatTableModule} from '@angular/material/table';
 
 import { MatGridListModule } from '@angular/material/grid-list';
 
@@ -34,6 +35,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatStepperModule,
     MatRadioModule,
     MatButtonToggleModule,
+    MatTableModule,
   ],
 })
 export class MaterialModule {}
