@@ -9,6 +9,10 @@ const routes: Routes =[
     loadChildren:()=> import('./admin/admin.module').then(m=>m.AdminModule)
   },
   {
+    path:'administrador',
+    loadChildren:()=>import('./administrador/administrador.module').then(m=>m.AdministradorModule)
+  },
+  {
     path:'404',
     component: ErrorComponent
   },
@@ -24,7 +28,7 @@ const routes: Routes =[
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
   
   ],
   exports:[
