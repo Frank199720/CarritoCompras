@@ -30,6 +30,7 @@ import { AdministradorComponent } from './administrador-component';
     FlexLayoutModule,
     MaterialModule,
     AdministradorRoutingModule,
+    
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
