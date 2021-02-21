@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiGeneral:"RutaInicial" //acá usaremos la ruta desde donde consumimos los servicios
+  apiGeneral:"http://127.0.0.1:8000/api" //acá usaremos la ruta desde donde consumimos los servicios
 };
 
 /*

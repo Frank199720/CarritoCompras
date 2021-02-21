@@ -12,6 +12,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../material/material.module';
 import { AdministradorRoutingModule } from './administrador-routing.module';
 import { AdministradorComponent } from './administrador-component';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AdministradorComponent } from './administrador-component';
     HeaderAdminComponent,
     SidebarAdminComponent,
     AccessComponent,
+    
     AdministradorComponent
   ],
   imports: [
@@ -30,6 +32,7 @@ import { AdministradorComponent } from './administrador-component';
     FlexLayoutModule,
     MaterialModule,
     AdministradorRoutingModule,
+    AgGridModule.withComponents([])
     
   ],
   schemas: [

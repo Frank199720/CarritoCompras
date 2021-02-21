@@ -1,39 +1,228 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
+import { Producto } from '../../../interfaces/producto';
+import { ProductoService } from '../../../services/producto.service';
+import { Marca } from '../../../interfaces/marca';
+import { Categoria } from '../../../interfaces/categoria';
+import { MarcaService } from '../../../services/marca.service';
+import { CategoriaService } from '../../../services/categoria.service';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','edit'];
-  dataSource = ELEMENT_DATA;
-  constructor(private modal:NgbModal) { }
-
-  ngOnInit(): void {
+  public rowData;
+  private isEdit: boolean;
+  public accion = '';
+  private idProducto: number = -1;
+  public marca: Marca[];
+  public categoria: Categoria[];
+  frameworkComponents;
+  gridApi;
+  producto: Producto = {
+    pro_nombre: null,
+    pro_cantidad: null,
+    pro_stock: null,
+    pro_precio: null,
+    mar_id: null,
+    dep_id: null,
+  };
+  constructor(
+    private modal: NgbModal,
+    private ProductoService: ProductoService,
+    private marcaService: MarcaService,
+    private categoriaService: CategoriaService
+  ) {
+    this.obtenerProductos();
+    this.marcaService.getMarca().subscribe((data: Marca[]) => {
+      this.marca = data;
+      console.log(data);
+    });
+    this.categoriaService.getCategoria().subscribe((data: Categoria[]) => {
+      this.categoria = data;
+    });
   }
-  selectedRow(row){
+  columnDefs = [
+    { field: 'pro_id', headerName: 'CodProducto', hide: true },
+    {
+      field: 'pro_nombre',
+      headerName: 'Producto',
+      resizable: true,
+      width: '300',
+    },
+    { field: 'dep_nombre', headerName: 'Categoria' },
+    { field: 'mar_nombre', headerName: 'Marca' },
+    {
+      field: 'pro_precio',
+      headerName: 'Precio',
+      width: '100',
+    },
+    { field: 'pro_cantidad', headerName: 'Cantidad', width: '100' },
+    { field: 'pro_stock', headerName: 'Stock mínimo', width: '150' },
+    { field: 'dep_id', headerName: 'COD DEP', hide: true },
+    { field: 'mar_id', headerName: 'Mar cod', hide: true },
+  ];
+  ngOnInit(): void {}
+  selectedRow(row) {
     console.log(row);
   }
-    
+  agregarProducto(modal, band) {
+    if (!band) {
+      if (this.validacionClick()) {
+        this.isEdit = true;
+        this.producto = this.rowData.find((m) => {
+          return m.pro_id == this.idProducto;
+        });
+        this.openModal(modal, band);
+      } else {
+        this.showMessage('Error', 'Seleccione una fila', 'error');
+      }
+
+      console.log(this.producto);
+    } else {
+      this.isEdit = false;
+      this.openModal(modal,band);
+    }
+  }
+
+  openModal(modal, band) {
+    if (band) {
+      this.accion = 'Agregar Producto';
+    } else {
+      this.accion = 'Edición de Producto';
+    }
+    this.modal.open(modal, { size: 'lg', backdrop: 'static' });
+  }
+  validar() {
+    let resultado = 'ok';
+    if (this.producto.pro_nombre === null) return 'Faltan datos';
+    if (this.producto.pro_cantidad === null) return 'Faltan datos';
+    if (this.producto.pro_stock === null) return 'Faltan datos';
+    if (this.producto.pro_precio === null) return 'Faltan datos';
+    if (this.producto.mar_id === null) return 'Faltan datos';
+    if (this.producto.dep_id === null) return 'Faltan datos';
+    if (this.producto.pro_stock > this.producto.pro_cantidad)
+      return 'La cantidad no puede ser menor al stock mínimo ';
+    if (this.producto.pro_stock == this.producto.pro_cantidad)
+      return 'La cantidad no puede ser igual al stock mínimo';
+    return resultado;
+  }
+  validarCantidades() {
+    if (this.producto.pro_stock <= this.producto.pro_cantidad) return false;
+    return true;
+  }
+  guardar() {
+    let resultado = this.validar();
+    if (resultado == 'ok') {
+      if (this.isEdit) {
+        this.ProductoService.editarProducto(this.producto).subscribe(
+          (data) => {
+            this.modal.dismissAll();
+            this.obtenerProductos();
+            this.showMessage(
+              'Aviso',
+              'El producto ha sido editado con éxito',
+              'success'
+            );
+          },
+          (error) => {
+            console.log(error);
+            this.showMessage(
+              'Error' + error.status + '<br>' + error.statusText,
+              'No se pudo editar el registro',
+              'error'
+            );
+          }
+        );
+      } else {
+        this.ProductoService.insertProducto(this.producto).subscribe(
+          (data) => {
+            this.modal.dismissAll();
+            this.obtenerProductos();
+            this.showMessage(
+              'Aviso',
+              'El producto ha sido guardado con éxito',
+              'success'
+            );
+          },
+          (error) => {
+            console.log(error);
+            this.showMessage(
+              'Error' + error.status + '<br>' + error.statusText,
+              'No se pudo eliminar el registro',
+              'error'
+            );
+          }
+        );
+      }
+    } else {
+      this.showMessage('Error!', resultado, 'error');
+    }
+  }
+  deleteProducto() {
+    if (this.validacionClick()) {
+      Swal.fire({
+        title: '¿Estas seguro?',
+        text: 'No podras revertir la acción',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'De acuerdo',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.ProductoService.deleteProducto(this.idProducto).subscribe(
+            () => {
+              this.obtenerProductos();
+              this.showMessage(
+                'Aviso',
+                'El producto ha sido eliminado con éxito',
+                'success'
+              );
+            },
+            (error) => {
+              this.showMessage(
+                'Error' + error.status + '<br>' + error.statusText,
+                'No se pudo guardar el registro',
+                'error'
+              );
+            }
+          );
+        }
+      });
+    } else {
+      this.showMessage('Error', 'Seleccione un producto', 'error');
+    }
+  }
+  validacionClick() {
+    console.log(this.idProducto);
+    if (this.idProducto == -1) return false;
+    return true;
+  }
+  showMessage(title, text, icon) {
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+    });
+  }
+  obtenerProductos() {
+    this.ProductoService.getProducto().subscribe((data) => {
+      console.log(data);
+      this.rowData = data;
+    });
+  }
+  onSelectionChanged(params) {
+    var selectedRows = this.gridApi.getSelectedRows();
+    this.idProducto = selectedRows[0].pro_id;
+    console.log(selectedRows);
+  }
+  onGridReady(params) {
+    this.gridApi = params.api;
+  }
   
+
 }

@@ -1,5 +1,83 @@
-<ng-template>
-  
+<ng-template #modalProducto let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">{{accion}}</h5>
+    
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="recipient-name" class="col-form-label">Nombre:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombre"
+            [(ngModel)]="producto.pro_nombre"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-7">
+        <label for="recipient-name" class="col-form-label">Categoria:</label>
+        <select class="form-control" [(ngModel)]="producto.dep_id">
+          <option [value]="item.dep_id" *ngFor="let item of categoria">{{item.dep_nombre}}</option>
+        </select>
+      </div>
+      <div class="col-3">
+        <label for="recipient-name" class="col-form-label">Marca:</label>
+        <select class="form-control" [(ngModel)]="producto.mar_id">
+          <option [value]="item.mar_id" *ngFor="let item of marca">{{item.mar_nombre}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="recipient-name" class="col-form-label">Precio:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Precio"
+            [(ngModel)]="producto.pro_precio"
+            
+          />
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="recipient-name" class="col-form-label"
+            >Stock minimo:</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="Stock"
+            [(ngModel)]="producto.pro_stock"
+          />
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="recipient-name" class="col-form-label">Cantidad:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Cantidad"
+            [(ngModel)]="producto.pro_cantidad"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="guardar()" class="btn btn-primary">
+      Guardar
+    </button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+      Close
+    </button>
+  </div>
 </ng-template>
 <div class="container">
   <mat-card class="example-card">
@@ -7,55 +85,46 @@
       <mat-card-title>LISTA DE PRODUCTOS</mat-card-title>
       <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
-    
+
     <mat-divider></mat-divider>
     <mat-card-content>
-        <div class="row d-flex m-2">
-            <button class="btn btn-success ml-auto">Añadir</button>
-        </div>
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-        <!-- Position Column -->
-        <ng-container matColumnDef="position">
-          <th mat-header-cell *matHeaderCellDef>No.</th>
-          <td mat-cell *matCellDef="let element">{{ element.position }}</td>
-        </ng-container>
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-        </ng-container>
-
-        <!-- Weight Column -->
-        <ng-container matColumnDef="weight">
-          <th mat-header-cell *matHeaderCellDef>Weight</th>
-          <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
-        </ng-container>
-
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="symbol">
-          <th mat-header-cell *matHeaderCellDef>Symbol</th>
-          <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
-        </ng-container>
-        <ng-container matColumnDef="edit">
-            <th mat-header-cell *matHeaderCellDef> Action </th>
-            <td mat-cell *matCellDef="let element" fxLayoutGap="5px">
-                <button mat-mini-fab color="primary"><mat-icon>edit</mat-icon></button>
-                <button mat-mini-fab color="warn"><mat-icon>delete</mat-icon></button>
-              </td>
-         
-        </ng-container>
-        
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr
-          mat-row
-          *matRowDef="let row; columns: displayedColumns"
-          (click)="selectedRow(row)"
-        ></tr>
-      </table>
+      <div class="row d-flex m-2">
+        <button
+          class="btn btn-primary ml-auto"
+          (click)="agregarProducto(modalProducto,true)"
+        >
+          Añadir
+        </button>
+        <button
+          class="btn btn-warning"
+          (click)="agregarProducto(modalProducto,false)"
+        >
+          Editar
+        </button>
+        <button
+          class="btn btn-danger"
+          (click)="deleteProducto()"
+        >
+          Eliminar
+        </button>
+      </div>
+      <div id="myGrid" class="ag-theme-material" style="width: 100%; height: 100%">
+        <ag-grid-angular
+      #agGrid
+      style="width: 100%px; height: 500px;"
+      class="ag-theme-alpine"
+      [rowData]="rowData"
+      
+      [columnDefs]="columnDefs"
+      
+      (gridReady)="onGridReady($event)"
+      (selectionChanged)="onSelectionChanged($event)"
+      rowSelection="single"
+      [frameworkComponents]="frameworkComponents"
+      >
+    </ag-grid-angular>
+      </div>
+      
     </mat-card-content>
   </mat-card>
 </div>
