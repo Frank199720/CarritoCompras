@@ -22,6 +22,7 @@ import { DatosComponent } from './perfil/contenido/datos/datos.component';
 import { PasswordComponent } from './perfil/contenido/password/password.component';
 import { ComprasComponent } from './perfil/contenido/compras/compras.component';
 import { DetalleCompraComponent } from './perfil/contenido/detalle-compra/detalle-compra.component';
+import { ItemComponent } from './compra/item/item.component';
 
 
 
@@ -44,7 +45,8 @@ import { DetalleCompraComponent } from './perfil/contenido/detalle-compra/detall
     DatosComponent,
     PasswordComponent,
     ComprasComponent,
-    DetalleCompraComponent],
+    DetalleCompraComponent,
+    ItemComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

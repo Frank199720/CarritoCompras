@@ -58,3 +58,9 @@ mat-form-field{
     text-align: right;
     margin-right: 10px;
 }
+.btn-cantidad{
+    width: 30px;
+}
+.input-cantidad{
+    width: 60px;
+}

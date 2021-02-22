@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
+import { Usuario } from '../../../../interfaces/usuario';
 
 @Component({
   selector: 'app-datos',
@@ -8,17 +9,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class DatosComponent implements OnInit {
 
-  /*formPerfil: FormGroup;
-
-  createFormGroup(){
-    return new FormGroup({
-      nombres: new FormControl({ value: '', disabled: true }, [Validators.required]),
-
-    });
-  }
-
-  get nombres() { return this.formPerfil.get('nombres') }*/
-
   nombres = new FormControl({ value: '', disabled: true }, [Validators.required]); 
   apellidos = new FormControl({ value: '', disabled: true }, [Validators.required]); 
   dni = new FormControl({ value: '', disabled: true }, [Validators.required]); 
@@ -26,17 +16,23 @@ export class DatosComponent implements OnInit {
   correo = new FormControl({ value: '', disabled: true }, [Validators.required]); 
   departamento = new FormControl({ value: '', disabled: true }, [Validators.required]); 
   provincia = new FormControl({ value: '', disabled: true }, [Validators.required]); 
-  distrito = new FormControl({ value: '', disabled: true }, [Validators.required]); 
+  distrito = new FormControl({ value: '', disabled: true }, [Validators.required]);
 
-  constructor() { 
-    //this.formPerfil=this.createFormGroup();
-  }
+  usuario:Usuario = {
+    usu_dni: '72382233',
+  };
+  usuarios:Usuario[];
+
+  constructor() { }
 
   ngOnInit(): void {
   }
 
+  actualizar(){
+    console.log(this.usuario);
+  }
+
   habilitar(){
-    //console.log(this.nombres.disabled);
     this.nombres.enable();
     this.apellidos.enable();
     this.dni.enable();
@@ -46,5 +42,4 @@ export class DatosComponent implements OnInit {
     this.provincia.enable();
     this.distrito.enable();
   }
-
 }
