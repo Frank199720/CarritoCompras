@@ -1,0 +1,32 @@
+<mat-grid-list cols="12" rowHeight="25px">
+    <mat-grid-tile colspan="2" rowspan="4">
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+    </mat-grid-tile>
+    <mat-grid-tile colspan="5" rowspan="4">
+
+        <p class="align-left">descripcion</p>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="2">
+        <p class="align-left">CANTIDAD
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="2">
+        <button class="btn-cantidad btn btn-light" (click)="aumentar()">+</button>
+        <input class="input-cantidad form-control" type="text" [value]="item">
+        <button class="btn-cantidad btn btn-light" (click)="disminuir()">-</button>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="4">
+        <a type="button"><i class="fas fa-trash-alt fa-2x"></i></a>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1">
+        <p class="align-left">Precio unidad</p>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1">
+        <p class="align-right">S/ 50.00</p>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1">
+        <p class="align-left">Precio total</p>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1">
+        <p class="align-right">S/ 100.00</p>
+    </mat-grid-tile>
+</mat-grid-list>

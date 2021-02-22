@@ -1,0 +1,22 @@
+i{
+    color: gray;
+}
+i:hover{
+    color: teal;
+}
+.align-left{
+    width: 100%;
+    text-align: left;
+    margin-left: 10px;
+}
+.align-right{
+    width: 100%;
+    text-align: right;
+    margin-right: 10px;
+}
+.btn-cantidad{
+    width: 30px;
+}
+.input-cantidad{
+    width: 60px;
+}

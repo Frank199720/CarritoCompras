@@ -4,29 +4,25 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a [routerLink]="[ '/shop/principal']" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
     </ul>
-
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
+      <li class="nav-item dropdown" *ngIf="!login">
+        <button [routerLink]="['auth']" type="button" class="btn btn-info">INGRESAR</button>
+      </li>
+      <li class="nav-item dropdown" *ngIf="login">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="fas fa-user">Name user</i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+          <ul>
+            <li><a type="button" class="dropdown-item">Perfil</a></li>
+            <li><a type="button" class="dropdown-item">Cerrar sesión</a></li>
+          </ul>
+        </div>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="fas fa-shopping-cart fa-2x" style="color: #F5B041;"></i>

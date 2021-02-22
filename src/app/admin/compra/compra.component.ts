@@ -18,9 +18,11 @@ export class CompraComponent implements OnInit {
 
   get direccion() { return this.formDireccion.get("direccion") }*/
 
-  prueba =[];
+  prueba = [];
   delivery:Boolean=true;
   boleta:Boolean=true;
+
+  cant=[1,2,3];
 
   direccion = new FormControl('',[Validators.required]);
   departamento = new FormControl('',[Validators.required]);
@@ -28,6 +30,7 @@ export class CompraComponent implements OnInit {
   distrito = new FormControl('',[Validators.required]);
   telefonoFijo = new FormControl('',[Validators.required]);
   celular = new FormControl('',[Validators.required]);
+  
   cantidad = new FormControl('',[Validators.required]);
   
 
@@ -40,7 +43,22 @@ export class CompraComponent implements OnInit {
     this.prueba = JSON.parse(items);
   }
 
+  aumentar(){
+    console.log(this.cant[0]);
+    var actual = this.cant[0]
+    this.cant[0] = actual + 1;
+  }
+
+  disminuir(){
+    
+  }
+
   probar(){
     console.log("checked");
+  }
+
+  selectionChange(){
+    //this.prueba[1].edad = 2;
+    this.ngOnInit();
   }
 }

@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   
   constructor(public carrito:CarService) { }
   datos:Prueba[];
+  login:Boolean=false;
   ngOnInit(): void {
     let items = localStorage.getItem("arreglo")
     this.datos = JSON.parse(items);
