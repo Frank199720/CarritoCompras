@@ -20,6 +20,8 @@ export class ProductsComponent implements OnInit {
   private idProducto: number = -1;
   public marca: Marca[];
   public categoria: Categoria[];
+  public search:string;
+  public CategoriaSelected;
   frameworkComponents;
   gridApi;
   producto: Producto = {
@@ -223,6 +225,30 @@ export class ProductsComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
   }
-  
+  Busqueda(valor){
+    
+    if(this.CategoriaSelected===null){
+      if(valor==''){
+        this.obtenerProductos();
+      }
+      this.ProductoService.getProductoByDesc(valor).subscribe((data)=>{
+        this.rowData=data;
+      })
+    }else{
+      if(valor=='') this.ProductoService.getProductoByCategoria(this.CategoriaSelected).subscribe((data)=>
+      {
+        this.rowData=data;
+      })
+      this.ProductoService.getProductoByCategoriaDesc(valor,this.CategoriaSelected).subscribe((data)=>{
+        this.rowData=data;
+      })
+    }
+    
+  }
+  searchForCategory(){
+    this.ProductoService.getProductoByCategoria(this.CategoriaSelected).subscribe((data)=>{
+      this.rowData=data;
+    })
+  }
 
 }

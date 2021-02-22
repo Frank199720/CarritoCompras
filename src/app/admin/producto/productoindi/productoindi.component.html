@@ -1,15 +1,27 @@
 <mat-card>
-  <mat-card-header>
-    <mat-card-title>{{ prueba.superhero }}</mat-card-title>
-    <mat-card-subtitle>Aqui vendría alguna descripcion</mat-card-subtitle>
-  </mat-card-header>
+ 
   <img mat-card-image src="assets/no-image.png" alt="" />
   <mat-card-content>
-    <h3>Otra cosa</h3>
-    <p>Blabla</p>
+    <div class="row">
+      <div class="col">
+        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-muted">{{producto.pro_nombre|uppercase}}</h2>
+      </div>
+      <div class="col-12">
+        <p  class="text-danger" style="font-size: 16px;">S/.{{producto.pro_precio}}</p>
+      </div>
+    </div>
+    <div class="row">
+      
+    </div>
+    
     <div class="row d-flex">
       <div class="input-group">
-        <input type="number" class="form-control" name="" id="" [(ngModel)]="prueba.cantidad">
+        <input type="number" class="form-control" name="" id="" [(ngModel)]="producto.pro_cantidad_elegida">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger ml-auto" (click)="addtoCar()">
         Add to Car <i class="fas fa-plus-square fa-lg"></i>

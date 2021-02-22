@@ -18,6 +18,10 @@ export class ProductoService {
   getProductoByCategoriaDesc(descripcion:string,codCategoria:number){
     return this.HttpClient.get(this.ruta+'/getdesProducto/'+descripcion+'/'+codCategoria);
   }
+  
+  getProductoByDesc(descripcion:string){
+    return this.HttpClient.get(this.ruta+'/productosbydesc/'+descripcion);
+  }
   getProducto(){
     return this.HttpClient.get(this.ruta+'/productos');
   }

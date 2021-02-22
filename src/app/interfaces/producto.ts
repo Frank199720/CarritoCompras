@@ -6,5 +6,6 @@ export interface Producto {
     mar_id:number;
     dep_id:number;
     pro_cantidad:number;
-    pro_estado?:number
+    pro_estado?:number;
+    pro_cantidad_elegida?:number
 }
