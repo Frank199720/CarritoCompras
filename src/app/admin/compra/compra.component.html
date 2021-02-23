@@ -2,7 +2,7 @@
     <mat-step>
         <ng-template matStepLabel>Bolsa de compra</ng-template>
         <mat-card *ngFor="let item of prueba">
-            <app-item [item]="item.edad"></app-item>
+            <app-item [item]="item"></app-item>
         </mat-card>
         <mat-grid-list cols="12">
             <mat-grid-tile colspan="12">
@@ -12,7 +12,7 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Despacho</ng-template>
-        <input type="text" [value]="prueba[1].edad">
+        <input type="text" >
         <div class="row">
             <div class="col-8 div-hor">
                 <mat-grid-list cols="2" rowHeight="80px">
@@ -112,25 +112,25 @@
                                         alt="Photo of a Shiba Inu">
                                 </mat-grid-tile>
                                 <mat-grid-tile colspan="4" rowspan="1">
-                                    <mat-card-title>descripcion</mat-card-title>
+                                    <mat-card-title>{{item.pro_nombre}}</mat-card-title>
                                 </mat-grid-tile>
                                 <mat-grid-tile colspan="2" rowspan="1">
                                     <mat-card-subtitle class="align-left">Cantidad</mat-card-subtitle>
                                 </mat-grid-tile>
                                 <mat-grid-tile colspan="2" rowspan="1">
-                                    <mat-card-subtitle class="align-right">2</mat-card-subtitle>
+                                    <mat-card-subtitle class="align-right">{{item.pro_cantidad_elegida}}</mat-card-subtitle>
                                 </mat-grid-tile>
                                 <mat-grid-tile colspan="2" rowspan="1">
                                     <mat-card-subtitle class="align-left">Precio Unitario</mat-card-subtitle>
                                 </mat-grid-tile>
                                 <mat-grid-tile colspan="2" rowspan="1">
-                                    <mat-card-subtitle class="align-right">S/ 30.00</mat-card-subtitle>
+                                    <mat-card-subtitle class="align-right">{{item.pro_precio}}</mat-card-subtitle>
                                 </mat-grid-tile>
                                 <mat-grid-tile colspan="2" rowspan="1">
                                     <mat-card-subtitle class="align-left">Subtotal</mat-card-subtitle>
                                 </mat-grid-tile>
                                 <mat-grid-tile colspan="2" rowspan="1">
-                                    <mat-card-subtitle class="align-right">S/ 60.00</mat-card-subtitle>
+                                    <mat-card-subtitle class="align-right">{{item.pro_precio*item.pro_cantidad_elegida}}</mat-card-subtitle>
                                 </mat-grid-tile>
                             </mat-grid-list><br>
                             <mat-divider></mat-divider>
@@ -142,7 +142,7 @@
                             <mat-card-subtitle class="totales align-left">TOTAL NORMAL:</mat-card-subtitle>
                         </mat-grid-tile>
                         <mat-grid-tile colspan="3">
-                            <mat-card-subtitle class="totales align-right">S/ 123.00</mat-card-subtitle>
+                            <mat-card-subtitle class="totales align-right">{{carService.totalVenta}}</mat-card-subtitle>
                         </mat-grid-tile>
                         <mat-grid-tile colspan="6">
                             <button type="button" mat-flat-button matStepperNext color="primary">Continuar</button>
@@ -349,16 +349,16 @@
                     000001
                 </mat-grid-tile>
                 <mat-grid-tile colspan="5">
-                    <p class="align-left">Colchon</p>
+                    <p class="align-left">{{item.pro_nombre}}</p>
                 </mat-grid-tile>
                 <mat-grid-tile colspan="1">
-                    1
+                    {{item.pro_cantidad_elegida}}
                 </mat-grid-tile>
                 <mat-grid-tile colspan="2">
-                    <p class="align-right">S/ 50.00</p>
+                    <p class="align-right">S/ {{item.pro_precio}}</p>
                 </mat-grid-tile>
                 <mat-grid-tile colspan="2">
-                    <p class="align-right">S/ 50.00</p>
+                    <p class="align-right">S/ {{item.pro_precio*item.pro_cantidad_elegida}}</p>
                 </mat-grid-tile>
             </div>
         </mat-grid-list>
@@ -371,7 +371,7 @@
                 <p class="align-left">TOTAL NORMAL</p>
             </mat-grid-tile>
             <mat-grid-tile colspan="3" class="totales">
-                <p class="align-right">S/ 500.00</p>
+                <p class="align-right">S/ {{carService.totalVenta}}</p>
             </mat-grid-tile>
             <mat-grid-tile colspan="3" class="totales">
                 <p class="align-left">DELIVERY</p>

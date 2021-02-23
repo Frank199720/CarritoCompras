@@ -4,14 +4,14 @@
     </mat-grid-tile>
     <mat-grid-tile colspan="5" rowspan="4">
 
-        <p class="align-left">descripcion</p>
+        <p class="align-left">Nombre : {{item.pro_nombre|uppercase}}</p>
     </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="2">
-        <p class="align-left">CANTIDAD
+        <p class="align-left">CANTIDAD</p>
     </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="2">
         <button class="btn-cantidad btn btn-light" (click)="aumentar()">+</button>
-        <input class="input-cantidad form-control" type="text" [value]="item">
+        <input class="input-cantidad form-control" type="text" [value]="item.pro_cantidad_elegida">
         <button class="btn-cantidad btn btn-light" (click)="disminuir()">-</button>
     </mat-grid-tile>
     <mat-grid-tile colspan="1" rowspan="4">
@@ -21,12 +21,12 @@
         <p class="align-left">Precio unidad</p>
     </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="1">
-        <p class="align-right">S/ 50.00</p>
+        <p class="align-right">{{item.pro_precio}}</p>
     </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="1">
         <p class="align-left">Precio total</p>
     </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="1">
-        <p class="align-right">S/ 100.00</p>
+        <p class="align-right">{{item.pro_precio*item.pro_cantidad_elegida}}</p>
     </mat-grid-tile>
 </mat-grid-list>

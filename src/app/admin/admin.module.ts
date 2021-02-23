@@ -23,6 +23,7 @@ import { PasswordComponent } from './perfil/contenido/password/password.componen
 import { ComprasComponent } from './perfil/contenido/compras/compras.component';
 import { DetalleCompraComponent } from './perfil/contenido/detalle-compra/detalle-compra.component';
 import { ItemComponent } from './compra/item/item.component';
+import { TarjetaComponent } from './producto/carrito/tarjeta/tarjeta.component';
 
 
 
@@ -46,7 +47,8 @@ import { ItemComponent } from './compra/item/item.component';
     PasswordComponent,
     ComprasComponent,
     DetalleCompraComponent,
-    ItemComponent],
+    ItemComponent,
+    TarjetaComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

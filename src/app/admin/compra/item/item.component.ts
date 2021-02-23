@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { CarService } from '../../../services/car.service';
 
 @Component({
   selector: 'app-item',
@@ -7,8 +8,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ItemComponent implements OnInit {
   @Input()
-  item: number;
-  constructor() { }
+  item;
+  
+  constructor(public carService:CarService) { }
 
   ngOnInit(): void {
   }
@@ -18,7 +20,7 @@ export class ItemComponent implements OnInit {
     var array = JSON.parse(productos);
     //console.log(array);
     this.item++;
-    array[1].edad=this.item;
+    
     localStorage.setItem("arreglo",JSON.stringify(array));
   }
 

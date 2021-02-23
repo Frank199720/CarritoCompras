@@ -6,11 +6,20 @@ import { Prueba } from '../interfaces/prueba';
 })
 export class CarService {
   numeroVentas:number=0;
-  data:Prueba[];
+  data=[];
+  totalVenta:number=0;
   constructor() { }
   addCarrito(){
     let items = localStorage.getItem("arreglo")
     this.data = JSON.parse(items);
+    
+  }
+  actualizarVenta(){
+    let array = JSON.parse(localStorage.getItem('arreglo'));
+    this.totalVenta=0;
+    array.forEach(element => {
+      this.totalVenta+=element.pro_precio*element.pro_cantidad_elegida;
+    });
     
   }
 }

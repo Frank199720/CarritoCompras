@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CarService } from '../../../services/car.service';
-
+import { Producto } from '../../../interfaces/producto';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
@@ -9,16 +10,19 @@ import { CarService } from '../../../services/car.service';
 })
 export class CarritoComponent implements OnInit {
 
-  constructor(public carritoService:CarService, private router:Router) { }
-
-  compras=[];
+  constructor(public carritoService:CarService, private router:Router) { 
+    this.carritoService.actualizarVenta();
+  }
+  public items:number=0;
+  public totalNormal:number;
 
   ngOnInit(): void {
     
-    let items = localStorage.getItem("arreglo");
-    this.compras = JSON.parse(items);
-    console.log(this.compras);
+    this.items=0;
+    this.totalNormal=0;
     this.carritoService.addCarrito();
+    
+    
   }
   
   goToShop(){

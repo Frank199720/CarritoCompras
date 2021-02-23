@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { CarService } from '../../services/car.service';
 
 @Component({
   selector: 'app-compra',
@@ -34,7 +35,7 @@ export class CompraComponent implements OnInit {
   cantidad = new FormControl('',[Validators.required]);
   
 
-  constructor() { 
+  constructor(public carService:CarService) { 
     //this.formDireccion = this.createFormGroup();
   }
 

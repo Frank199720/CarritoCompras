@@ -1,0 +1,22 @@
+
+<mat-grid-list cols="6" rowHeight="50px">
+    
+    <mat-grid-tile colspan="2" rowspan="3">
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+            alt="Photo of a Shiba Inu">
+    </mat-grid-tile>
+    <mat-grid-tile colspan="3" rowspan="1">
+        Nombre : {{producto.pro_nombre|uppercase}}
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="3">
+        <button mat-mini-fab color="warn" (click)="removeItem()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1">
+        Cantidad : {{producto.pro_cantidad_elegida}}
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1">
+        Precio : S/.{{producto.pro_precio}}
+    </mat-grid-tile>
+</mat-grid-list>

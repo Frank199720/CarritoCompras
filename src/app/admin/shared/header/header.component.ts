@@ -10,12 +10,20 @@ import { CarService } from 'src/app/services/car.service';
 export class HeaderComponent implements OnInit {
   
   constructor(public carrito:CarService) { }
-  datos:Prueba[];
+  datos=[];
   login:Boolean=false;
   ngOnInit(): void {
     let items = localStorage.getItem("arreglo")
-    this.datos = JSON.parse(items);
-    this.carrito.numeroVentas=this.datos.length;
+    if(items){
+      this.datos = JSON.parse(items);
+      this.datos.forEach(element => {
+        this.carrito.numeroVentas =  this.carrito.numeroVentas + element.pro_cantidad_elegida;
+      });
+      
+    }else{
+      this.carrito.numeroVentas=0;
+    }
+    
   }
 
 }
