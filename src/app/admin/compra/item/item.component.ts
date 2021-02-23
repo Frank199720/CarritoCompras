@@ -18,10 +18,9 @@ export class ItemComponent implements OnInit {
   aumentar(){
     let productos = localStorage.getItem("arreglo");
     var array = JSON.parse(productos);
-    //console.log(array);
-    this.item++;
-    
-    localStorage.setItem("arreglo",JSON.stringify(array));
+    this.item.pro_cantidad_elegida++;
+    console.log(this.item);    
+    //localStorage.setItem("arreglo",JSON.stringify(array));
   }
 
   disminuir(){

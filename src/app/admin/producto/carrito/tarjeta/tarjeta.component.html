@@ -1,12 +1,12 @@
 
-<mat-grid-list cols="6" rowHeight="50px">
+<mat-grid-list cols="6" rowHeight="40px">
     
     <mat-grid-tile colspan="2" rowspan="3">
         <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
             alt="Photo of a Shiba Inu">
     </mat-grid-tile>
     <mat-grid-tile colspan="3" rowspan="1">
-        Nombre : {{producto.pro_nombre|uppercase}}
+        <p>Nombre : {{producto.pro_nombre|uppercase}}</p>
     </mat-grid-tile>
     <mat-grid-tile colspan="1" rowspan="3">
         <button mat-mini-fab color="warn" (click)="removeItem()">
@@ -14,9 +14,9 @@
         </button>
     </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="1">
-        Cantidad : {{producto.pro_cantidad_elegida}}
+        <p>Cantidad : {{producto.pro_cantidad_elegida}}</p>
     </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="1">
-        Precio : S/.{{producto.pro_precio}}
+        <p>Precio : S/.{{producto.pro_precio}}</p>
     </mat-grid-tile>
 </mat-grid-list>

@@ -1,3 +1,7 @@
+img.mat-card-image{
+    align-content: center;
+    margin: 0;
+}
 i{
     color: gray;
 }
