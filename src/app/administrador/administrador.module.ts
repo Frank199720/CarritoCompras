@@ -7,7 +7,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HeaderAdminComponent } from './master/header-admin/header-admin.component';
 import { SidebarAdminComponent } from './master/sidebar-admin/sidebar-admin.component';
 import { AccessComponent } from './adminLogin/access/access.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../material/material.module';
 import { AdministradorRoutingModule } from './administrador-routing.module';
@@ -29,6 +29,7 @@ import { AgGridModule } from 'ag-grid-angular';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     MaterialModule,
     AdministradorRoutingModule,
