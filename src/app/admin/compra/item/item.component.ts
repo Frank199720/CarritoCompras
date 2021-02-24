@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CarService } from '../../../services/car.service';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
@@ -18,17 +18,66 @@ export class ItemComponent implements OnInit {
   }
 
   aumentar(){
-    let productos = localStorage.getItem("arreglo");
-    var array = JSON.parse(productos);
     this.item.pro_cantidad_elegida++;
-    console.log(this.item);    
+    console.log(this.item);
+    if(this.item.pro_cantidad-this.item.pro_cantidad_elegida>this.item.pro_stock){
+      
+      this.carService.numeroVentas++;
+      
+      let productos = localStorage.getItem("arreglo");
+      var array = JSON.parse(productos);
+      let new_array =[];
+      localStorage.removeItem('arreglo');
+      array.forEach(element => {
+        if(element.pro_id != this.item.pro_id){
+          new_array.push(element);
+        }else{
+          new_array.push(this.item);
+        }
+      });
+      
+    
+      localStorage.setItem('arreglo',JSON.stringify(new_array));
+      this.carService.actualizarVenta();
+      this.carService.addCarrito();
+    }else{
+      this.item.pro_cantidad_elegida--;
+      this.showMessage('Error','Cantidad no permitida','error');
+    }
+   
+   
     //localStorage.setItem("arreglo",JSON.stringify(array));
   }
 
   disminuir(){
-    if(this.item != 1){
-      this.item--;
+    this.item.pro_cantidad_elegida--;
+    console.log(this.item);
+    if(this.item.pro_cantidad_elegida!=0){
+      
+      this.carService.numeroVentas--;
+      
+      let productos = localStorage.getItem("arreglo");
+      var array = JSON.parse(productos);
+      let new_array =[];
+      localStorage.removeItem('arreglo');
+      array.forEach(element => {
+        if(element.pro_id != this.item.pro_id){
+          new_array.push(element);
+        }else{
+          new_array.push(this.item);
+        }
+      });
+      
+    
+      localStorage.setItem('arreglo',JSON.stringify(new_array));
+      this.carService.actualizarVenta();
+      this.carService.addCarrito();
+    }else{
+      this.removeItem();
     }
+   
+  
+    
   }
   removeItem(){
     this.last_array=JSON.parse(localStorage.getItem('arreglo'));
@@ -49,5 +98,12 @@ export class ItemComponent implements OnInit {
      
       this.router.navigateByUrl('/shop/principal');
     }
+  }
+  showMessage(title, text, icon) {
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+    });
   }
 }
