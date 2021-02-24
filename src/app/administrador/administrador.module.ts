@@ -13,6 +13,7 @@ import { MaterialModule } from '../material/material.module';
 import { AdministradorRoutingModule } from './administrador-routing.module';
 import { AdministradorComponent } from './administrador-component';
 import { AgGridModule } from 'ag-grid-angular';
+import { MarcasComponent } from './pages/marcas/marcas.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { AgGridModule } from 'ag-grid-angular';
     SidebarAdminComponent,
     AccessComponent,
     
-    AdministradorComponent
+    AdministradorComponent,
+    
+    MarcasComponent
   ],
   imports: [
     CommonModule,

@@ -4,7 +4,8 @@
     </mat-grid-tile>
     <mat-grid-tile colspan="2">
         <div class="btn-al">
-            <button type="button" class="btn btn-success " (click)="habilitar()"><i class="far fa-edit"></i> Editar</button>
+            <button mat-raised-button color="primary" (click)="habilitar()"><i class="far fa-edit"></i>
+                Editar</button>
         </div>
     </mat-grid-tile>
     <mat-grid-tile colspan="1">
@@ -75,7 +76,10 @@
             <mat-error *ngIf="distrito.hasError('required')">Seleccione distrito</mat-error>
         </mat-form-field>
     </mat-grid-tile>
-    <mat-grid-tile colspan="2">
-        <button mat-flat-button color="primary" class="btn-lg" (click)="actualizar()">Aceptar</button>
+    <mat-grid-tile colspan="2" *ngIf="editar">
+        <div>
+            <button mat-flat-button class="btn btn-success btn-send" (click)="actualizar()">Aceptar</button>
+            <button mat-flat-button class="btn btn-danger btn-cancel" (click)="cancelar()">Cancelar</button>
+        </div>
     </mat-grid-tile>
 </mat-grid-list>

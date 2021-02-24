@@ -5,6 +5,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { ClientsComponent } from './pages/clients/clients.component';
+import { MarcasComponent } from './pages/marcas/marcas.component';
 import { AdministradorComponent } from './administrador-component';
 
 const routes: Routes = [
@@ -17,8 +18,9 @@ const routes: Routes = [
     component:AdministradorComponent,
     children:[
       {path:'',component: DashboardComponent},
-      {path:'products',component:ProductsComponent},
       {path:'categories',component:CategoriesComponent},
+      {path:'marcas',component:MarcasComponent},
+      {path:'products',component:ProductsComponent},
       {path:'clients',component:ClientsComponent}
     ]
   }
