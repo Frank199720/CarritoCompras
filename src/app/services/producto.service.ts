@@ -8,6 +8,7 @@ import { Producto } from '../interfaces/producto';
 })
 export class ProductoService {
   private ruta:string =environment.apiGeneral;
+  public productoData=[];
   constructor(private HttpClient:HttpClient) { }
   insertProducto(producto:Producto){
     return this.HttpClient.post(this.ruta+'/productos',producto);

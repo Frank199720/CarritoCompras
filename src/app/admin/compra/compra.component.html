@@ -1,7 +1,7 @@
 <mat-horizontal-stepper linear #stepper (selectionChange)="selectionChange()">
     <mat-step>
         <ng-template matStepLabel>Bolsa de compra</ng-template>
-        <mat-card *ngFor="let item of prueba">
+        <mat-card *ngFor="let item of carService.data">
             <app-item [item]="item"></app-item>
         </mat-card>
         <mat-grid-list cols="12">

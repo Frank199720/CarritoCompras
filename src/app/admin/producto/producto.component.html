@@ -8,7 +8,7 @@
   </button>
 </mat-form-field>
 <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px" >
-  <div fxFlex="30"  *ngFor="let item of producto">
+  <div fxFlex="30"  *ngFor="let item of productoService.productoData">
     <app-productoindi [producto]="item"></app-productoindi>
   </div>
 </div>
