@@ -15,11 +15,15 @@ export class CarService {
     
   }
   actualizarVenta(){
+  
     let array = JSON.parse(localStorage.getItem('arreglo'));
-    this.totalVenta=0;
-    array.forEach(element => {
-      this.totalVenta+=element.pro_precio*element.pro_cantidad_elegida;
-    });
+    if(array){
+      this.totalVenta=0;
+      array.forEach(element => {
+        this.totalVenta+=element.pro_precio*element.pro_cantidad_elegida;
+      });
+    }
+    
     
   }
 }
