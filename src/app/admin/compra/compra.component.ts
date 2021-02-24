@@ -39,6 +39,7 @@ export class CompraComponent implements OnInit {
   public bandLinear: boolean = true;
   public ruc: string;
   public razon_social: string;
+  public nombreConcatenado:string;
   /*formDireccion: FormGroup;
   
   createFormGroup(){
