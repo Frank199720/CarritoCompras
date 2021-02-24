@@ -17,16 +17,20 @@ export class ProductoComponent implements OnInit {
   constructor(
     private pruebaService: PruebaService,
     private activateRoute: ActivatedRoute,
-    private productoService: ProductoService
-  ) {}
-
-  ngOnInit(): void {
+    public productoService: ProductoService
+  ) {
     this.categoriaSelected = this.activateRoute.snapshot.paramMap.get('id');
     this.productoService.getProductoByCategoria(this.categoriaSelected).subscribe((data:Producto[]) => {
       this.producto = data;
+      this.productoService.productoData=data;
       console.log(this.categoriaSelected);
       console.log(this.producto)
     });
+  }
+
+  ngOnInit(): void {
+    
+    
   }
   buscando() {
     if (this.termino == '') {

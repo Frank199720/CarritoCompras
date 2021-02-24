@@ -36,18 +36,13 @@
       >
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-        <li class="nav-item">
-          <a [routerLink]="['producto', 1]" class="nav-link">
+        <li class="nav-item" *ngFor="let item of categoria">
+          <a [routerLink]="['producto', item.dep_id]" class="nav-link" (click)="llenarDataProducto(item.dep_id)">
             <i class="fas fa-user-edit"></i>
-            <p class="ml-1">Categoria 1</p>
+            <p class="ml-1">{{item.dep_nombre}}</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a [routerLink]="['producto', 1]" class="nav-link">
-            <i class="fas fa-user-edit"></i>
-            <p class="ml-1">Categoria 1</p>
-          </a>
-        </li>
+       
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

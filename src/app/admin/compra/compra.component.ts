@@ -62,4 +62,5 @@ export class CompraComponent implements OnInit {
     //this.prueba[1].edad = 2;
     this.ngOnInit();
   }
+  
 }
