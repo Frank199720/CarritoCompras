@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Usuario } from '../../interfaces/usuario';
 import { UsuarioService } from '../../services/usuario.service';
-
+import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
@@ -31,7 +33,7 @@ export class AuthenticationComponent implements OnInit {
     usu_fech_reg: '2021-01-02',
   };
 
-  constructor(private usuarioService:UsuarioService) {
+  constructor(private usuarioService:UsuarioService, private AuthService:AuthService ,private router:Router) {
     this.frmRegistro = this.createFormGroup();
    }
 
@@ -70,16 +72,6 @@ export class AuthenticationComponent implements OnInit {
     });
 
   }
-usuario:Usuario = {
-    usu_dni: '72382233',
-    usu_email: 'alex@gmail.com',
-    usu_password: '123',
-    usu_apellidos: 'Silvera',
-    usu_nombres: 'Alexander',
-    usu_telefono: '123456789',
-    usu_celular: '044002325',
-    usu_direccion: 'San aNDRES',
-    usu_fech_reg: '2021-01-02',
-  };
+
 }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Usuario } from '../../../../interfaces/usuario';
 import { UsuarioService } from '../../../../services/usuario.service';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-datos',
@@ -22,13 +23,15 @@ export class DatosComponent implements OnInit {
   editar:Boolean = false;
   usuario:Usuario = {};
 
-  constructor(private usuarioService:UsuarioService) { 
-    usuarioService.login('alex@gmail.com','1234').subscribe((data:Usuario)=>{
-      console.log(data);
-      this.usuario = data[0];
-      localStorage.setItem("usuario",JSON.stringify(this.usuario));
-      console.log(this.usuario.usu_nombres);
-    });
+  constructor(private usuarioService:UsuarioService, private AuthService:AuthService) { 
+    // usuarioService.login('alex@gmail.com','1234').subscribe((data:Usuario)=>{
+    //   console.log(data);
+    //   this.usuario = data[0];
+    //   localStorage.setItem("usuario",JSON.stringify(this.usuario));
+    //   console.log(this.usuario.usu_nombres);
+    // });
+    this.usuario=AuthService.user;
+    
   }
 
   ngOnInit(): void {
