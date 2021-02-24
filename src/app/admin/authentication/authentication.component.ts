@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2'
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Usuario } from '../../interfaces/usuario';
 import { UsuarioService } from '../../services/usuario.service';
 
@@ -11,8 +9,31 @@ import { UsuarioService } from '../../services/usuario.service';
   styleUrls: ['./authentication.component.css']
 })
 export class AuthenticationComponent implements OnInit {
+  frmRegistro:FormGroup;
 
-  constructor(private AuthService:AuthService , private router:Router , private usuarioService:UsuarioService) { }
+  createFormGroup(){
+    return new FormGroup({
+      nombres: new FormControl('',[Validators.required])
+    });
+  }
+
+  get nombres() { return this.frmRegistro.get('nombres'); }
+
+  usuario:Usuario = {
+    usu_dni: '72382233',
+    usu_email: 'alex@gmail.com',
+    usu_password: '123',
+    usu_apellidos: 'Silvera',
+    usu_nombres: 'Alexander',
+    usu_telefono: '123456789',
+    usu_celular: '044002325',
+    usu_direccion: 'San aNDRES',
+    usu_fech_reg: '2021-01-02',
+  };
+
+  constructor(private usuarioService:UsuarioService) {
+    this.frmRegistro = this.createFormGroup();
+   }
 
   ngOnInit(): void {
   }
