@@ -7,7 +7,7 @@
                   <mat-card-header>
                     <div class="row">
                       <div class="col-12 text-center">
-                        <mat-card-title>Ya estoy registrado</mat-card-title>
+                        <mat-card-title>Iniciar sesión</mat-card-title>
                       </div>
                       <div class="col-12 text-center">
                         <mat-card-subtitle
@@ -20,16 +20,16 @@
                   <mat-card-content>
                     <mat-form-field class="example-full-width">
                       <mat-label class="col-12">Usuario</mat-label>
-                      <input type="email" matInput placeholder="Usuario" />
+                      <input type="email" matInput placeholder="Usuario" [(ngModel)]="user_name"/>
                     </mat-form-field>
                     <mat-form-field class="col-12">
                       <mat-label>Contraseña</mat-label>
-                      <input type="password" matInput placeholder="Contraseña" />
+                      <input type="password" matInput placeholder="Contraseña" [(ngModel)]="user_password" />
                     </mat-form-field>
             
                     <div class="row">
                       <div class="col text-center">
-                        <button mat-raised-button>Ingresar</button>
+                        <button mat-raised-button (click)="iniciarSesion()">Ingresar</button>
                       </div>
                     </div>
                   </mat-card-content>

@@ -26,12 +26,12 @@ export class CarritoComponent implements OnInit {
   }
   
   goToShop(){
-    //Validar antes si existe 
-    //if(item){
+    let item = localStorage.getItem('token');
+    if(item){
       this.router.navigateByUrl('/shop/compra');
-    //}else{
-      //this.router.navigateByUrl('/shop/auth')
-    //}
+    }else{
+      this.router.navigateByUrl('/shop/auth')
+    }
     
   }
 

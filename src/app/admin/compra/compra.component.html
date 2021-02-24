@@ -295,13 +295,14 @@
             <mat-grid-tile colspan="1">
               <mat-form-field appearance="fill">
                 <mat-label>Doc cliente</mat-label>
-                <input matInput type="text" placeholder="RUC: " />
+                <input matInput type="text" placeholder="RUC: " [(ngModel)]="ruc"/>
               </mat-form-field>
 
               <button
                 mat-fab
                 color="primary"
                 aria-label="Example icon button with a home icon"
+                (click)="buscarSunat()"
               >
                 <mat-icon>search</mat-icon>
               </button>
@@ -309,7 +310,7 @@
             <mat-grid-tile colspan="2">
               <mat-form-field appearance="fill" class="input-pago-lg">
                 <mat-label>Razón social</mat-label>
-                <input matInput type="text" />
+                <input matInput type="text" [(ngModel)]="razon_social"/>
               </mat-form-field>
             </mat-grid-tile>
 

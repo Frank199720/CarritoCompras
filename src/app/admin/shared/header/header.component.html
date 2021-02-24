@@ -9,16 +9,16 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown" *ngIf="!login">
+      <li class="nav-item dropdown" *ngIf="!AuthService.loginService">
         <button [routerLink]="['auth']" type="button" class="btn btn-info">INGRESAR</button>
       </li>
-      <li class="nav-item dropdown" *ngIf="login">
+      <li class="nav-item dropdown" *ngIf="AuthService.loginService">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="fas fa-user">Name user</i>
+          <i class="fas fa-user">{{nameUser}}</i>
         </a>
         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
           <ul>
-            <li><a type="button" class="dropdown-item">Perfil</a></li>
+            <li><a type="button" [routerLink]="['/shop/perfil']"  class="dropdown-item">Perfil</a></li>
             <li><a type="button" class="dropdown-item">Cerrar sesión</a></li>
           </ul>
         </div>
