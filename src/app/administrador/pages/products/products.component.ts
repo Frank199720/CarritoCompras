@@ -39,7 +39,7 @@ export class ProductsComponent implements OnInit {
     private categoriaService: CategoriaService
   ) {
     this.obtenerProductos();
-    this.marcaService.getMarca().subscribe((data: Marca[]) => {
+    this.marcaService.index().subscribe((data: Marca[]) => {
       this.marca = data;
       console.log(data);
     });

@@ -2,19 +2,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Departamento } from '../../../interfaces/departamento';
-import { DepartamentoService } from '../../../services/departamento.service';
+import { Marca } from '../../../interfaces/marca';
+import { MarcaService } from '../../../services/marca.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.css']
+  selector: 'app-marcas',
+  templateUrl: './marcas.component.html',
+  styleUrls: ['./marcas.component.css']
 })
-export class CategoriesComponent implements OnInit {
+export class MarcasComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
-  frmDepartamento:FormGroup;
+  frmMarca:FormGroup;
 
   private gridApi;
   private gridColumnApi;
@@ -25,43 +25,42 @@ export class CategoriesComponent implements OnInit {
   editing = false;
   accion = "";
 
-  departamento:Departamento = {};
-  departamentoini:Departamento = {};
-  idDepartamento;
-  nombreDep;
+  marca:Marca = {};
+  marcaini:Marca = {};
+  idMarca;
+  nombreMarca;
 
   createFormGroup(){
     return new FormGroup({
       descripcion: new FormControl('',[Validators.required])
     });
   }
+  get descripcion() { return this.frmMarca.get('descripcion'); }
 
-  get descripcion() { return this.frmDepartamento.get('descripcion'); }
-
-  constructor(private modal: NgbModal, private departamentoService:DepartamentoService) {
+  constructor(private modal: NgbModal, private marcaService:MarcaService) { 
     this.columnDefs = [
       {
         headerName: "CODIGO",
-        field: 'dep_id',
+        field: 'mar_id',
         flex: 1,
         minWidth: 100
       },
       {
         headerName: "NOMBRE",
-        field: 'dep_nombre',
+        field: 'mar_nombre',
         flex: 3,
         minWidth: 300
       }
     ];
     this.defaultColDef = { resizable:true, sortable:true };
-    this.frmDepartamento=this.createFormGroup();
+    this.frmMarca=this.createFormGroup();
   }
 
   ngOnInit(): void {
   }
 
-  getDepartamentos(){
-    this.departamentoService.index().subscribe(data=>{
+  getMarca(){
+    this.marcaService.index().subscribe(data=>{
       this.rowData = data;
     },error=>{
       console.log('Ocurrio un error');
@@ -71,9 +70,10 @@ export class CategoriesComponent implements OnInit {
   OnGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    this.departamentoService.index().subscribe(data=>{
+    this.getMarca();
+    /*this.marcaService.index().subscribe(data=>{
       this.rowData = data;
-    });
+    });*/
   }
 
   opensave(contenido) {
@@ -90,7 +90,7 @@ export class CategoriesComponent implements OnInit {
       this.editing=true;
       this.accion='Editar';
       selectedData.map((node)=>{
-        this.departamento = node;
+        this.marca = node;
       });
       this.modal.open(contenido, { backdrop: "static" });
     } else {
@@ -110,9 +110,9 @@ export class CategoriesComponent implements OnInit {
   }
 
   guardar(){
-    if(!this.frmDepartamento.invalid){
+    if(!this.frmMarca.invalid){
       if (this.editing) {
-        this.departamentoService.update(this.departamento, this.idDepartamento).subscribe(data=>{
+        this.marcaService.update(this.marca, this.idMarca).subscribe(data=>{
           Swal.fire({
             icon: 'success',
             title: 'Éxito',
@@ -120,7 +120,7 @@ export class CategoriesComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.getDepartamentos();
+          this.getMarca();
         },error=>{
           Swal.fire({
             icon: 'error',
@@ -131,7 +131,7 @@ export class CategoriesComponent implements OnInit {
           });
         });
       } else {
-        this.departamentoService.store(this.departamento).subscribe(data=>{
+        this.marcaService.store(this.marca).subscribe(data=>{
           Swal.fire({
             icon: 'success',
             title: 'Éxito',
@@ -139,7 +139,7 @@ export class CategoriesComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.getDepartamentos();
+          this.getMarca();
         },error=>{
           Swal.fire({
             icon: 'error',
@@ -167,7 +167,7 @@ export class CategoriesComponent implements OnInit {
       this.getSelectedRows();
       Swal.fire({
         title: '¿Esta seguro de eliminar este departamento?',
-        text: this.nombreDep,
+        text: this.nombreMarca,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -175,7 +175,7 @@ export class CategoriesComponent implements OnInit {
         confirmButtonText: 'Si, eliminalo!'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.departamentoService.destroy(this.idDepartamento).subscribe((data)=>{
+          this.marcaService.destroy(this.idMarca).subscribe((data)=>{
             Swal.fire({
               icon: 'success',
               title: 'Eliminado!',
@@ -183,7 +183,7 @@ export class CategoriesComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500,
             });
-            this.getDepartamentos();
+            this.getMarca();
           },(error)=>{
             console.log(error);
             Swal.fire({
@@ -208,14 +208,14 @@ export class CategoriesComponent implements OnInit {
   }
 
   limpiarForm(){
-    this.departamento = this.departamentoini;
-    this.frmDepartamento.reset();
+    this.marca = this.marcaini;
+    this.frmMarca.reset();
   }
 
   getSelectedRows() {
     const selectedNodes = this.agGrid.api.getSelectedNodes();
     const selectedData = selectedNodes.map(node => node.data );
-    this.idDepartamento = selectedData.map(node=>node.dep_id);
-    this.nombreDep = selectedData.map(node=>node.dep_nombre);
+    this.idMarca = selectedData.map(node=>node.mar_id);
+    this.nombreMarca = selectedData.map(node=>node.mar_nombre);
   }
 }

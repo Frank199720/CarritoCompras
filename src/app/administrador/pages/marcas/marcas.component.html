@@ -1,18 +1,18 @@
 <ng-template #contenido let-modal>
     <div class="modal-header">
-        <p class="fw-bolder fs-5" style="margin: 0px;">Departamento</p>
+        <p class="fw-bolder fs-5" style="margin: 0px;">Marca</p>
         <p class="fw-bolder fs-5" style="margin: 0px;">{{accion}}</p>
     </div>
     <div class="modal-body">
-        <form (ngSubmit)="guardar()" [formGroup]="frmDepartamento" autocomplete="off">
+        <form (ngSubmit)="guardar()" [formGroup]="frmMarca" autocomplete="off">
             <div class="row">
                 <div class="card-body">
                     <div class="form-group">
                         <label for="">Nombre</label>
-                        <input [(ngModel)]="departamento.dep_nombre" type="text" class="form-control form-control-sm" formControlName="descripcion">
+                        <input [(ngModel)]="marca.mar_nombre" type="text" class="form-control form-control-sm" formControlName="descripcion">
                         <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
                             <span class="form-text text-danger" *ngIf="descripcion.errors.required">Ingrese
-                                departamento</span>
+                                Marca</span>
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
 </ng-template>
 
 <div class="card">
-    <div class="card-header">LISTA DE DEPARTAMENTOS</div>
+    <div class="card-header">LISTA DE MARCAS</div>
     <div class="card-body">
         <div class="row mb-1">
             <div class="col d-flex">
