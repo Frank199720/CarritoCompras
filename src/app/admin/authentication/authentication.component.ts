@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Usuario } from '../../interfaces/usuario';
 import { UsuarioService } from '../../services/usuario.service';
 
@@ -8,6 +9,15 @@ import { UsuarioService } from '../../services/usuario.service';
   styleUrls: ['./authentication.component.css']
 })
 export class AuthenticationComponent implements OnInit {
+  frmRegistro:FormGroup;
+
+  createFormGroup(){
+    return new FormGroup({
+      nombres: new FormControl('',[Validators.required])
+    });
+  }
+
+  get nombres() { return this.frmRegistro.get('nombres'); }
 
   usuario:Usuario = {
     usu_dni: '72382233',
@@ -21,7 +31,9 @@ export class AuthenticationComponent implements OnInit {
     usu_fech_reg: '2021-01-02',
   };
 
-  constructor(private usuarioService:UsuarioService) { }
+  constructor(private usuarioService:UsuarioService) {
+    this.frmRegistro = this.createFormGroup();
+   }
 
   ngOnInit(): void {
   }
