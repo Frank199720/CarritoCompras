@@ -208,7 +208,7 @@
       </div>
     </div>
   </mat-step>
-  <mat-step>
+  <mat-step [stepControl]="secondFormControl" [optional]=false>
     <ng-template matStepLabel>Pago</ng-template>
     <div class="row">
       <div class="col-8 div-hor">
@@ -242,7 +242,7 @@
             </div>
             <p class="align-left">Factura</p>
           </mat-grid-tile>
-
+          <form [formGroup]="firstFormGroup">
           <div *ngIf="boleta">
             <mat-grid-tile colspan="2">
               <mat-form-field appearance="fill" class="input-pago-lg">
@@ -256,21 +256,22 @@
                 <input
                   matInput
                   type="email"
-                  value="email@example.com"
+                  [(ngModel)]="usuario.usu_email"
                   disabled
+
                 />
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile colspan="1">
               <mat-form-field appearance="fill">
                 <mat-label>Doc cliente</mat-label>
-                <input matInput type="text" value="DNI: 12345678" disabled />
+                <input matInput type="text"  [(ngModel)]="usuario.usu_dni" disabled />
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile colspan="1">
               <mat-form-field appearance="fill">
                 <mat-label>Celular</mat-label>
-                <input matInput type="text" value="123456789" disabled />
+                <input matInput type="text" [(ngModel)]="usuario.usu_celular" disabled />
               </mat-form-field>
             </mat-grid-tile>
           </div>
@@ -278,7 +279,7 @@
             <mat-grid-tile colspan="2">
               <mat-form-field appearance="fill" class="input-pago-lg">
                 <mat-label>Nombre representante</mat-label>
-                <input matInput type="text" value="nombre" disabled />
+                <input matInput type="text" value="nombre" [(ngModel)]="nombreConcatenado"  disabled />
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
@@ -287,7 +288,7 @@
                 <input
                   matInput
                   type="email"
-                  value="email@example.com"
+                  [(ngModel)]="usuario.usu_email"
                   disabled
                 />
               </mat-form-field>
@@ -321,6 +322,7 @@
               </mat-form-field>
             </mat-grid-tile>
           </div>
+        </form>
         </mat-grid-list>
       </div>
       <div class="col-4">
@@ -420,25 +422,35 @@
     <ng-template matStepLabel>Confirmación</ng-template>
     <mat-grid-list cols="2" rowHeight="20px">
       <mat-grid-tile colspan="2">
-        <p class="align-left">Fecha:</p>
+        <p class="align-left">Fecha: {{fechaActual}}</p>
       </mat-grid-tile>
       <mat-grid-tile colspan="2">
-        <p class="align-left">Tienda: online</p>
+        <p class="align-left">Tienda: Online</p>
       </mat-grid-tile>
-      <mat-grid-tile colspan="2">
-        <p class="align-left">Factura Nro: 010 154896</p>
+      
+      <mat-grid-tile colspan="2" *ngIf="!boleta">
+        <p class="align-left">Doc Cliente: RUC: {{ruc}}</p>
       </mat-grid-tile>
-      <mat-grid-tile colspan="2">
-        <p class="align-left">Doc Cliente: DNI: 12345678</p>
+      <mat-grid-tile colspan="2" *ngIf="!boleta">
+        <p class="align-left">RAZON SOCIAL: {{razon_social}}</p>
       </mat-grid-tile>
-      <mat-grid-tile colspan="2">
-        <p class="align-left">Nombre Cliente: Alexander Silvera</p>
+      <mat-grid-tile colspan="2" *ngIf="!boleta">
+        <p class="align-left">Email : alguien@example.com</p>
       </mat-grid-tile>
-      <mat-grid-tile colspan="2">
-        <p class="align-left">Email Cliente: alguien@example.com</p>
+      <mat-grid-tile colspan="2" *ngIf="!boleta">
+        <p class="align-left">Telefono: 123456789</p>
       </mat-grid-tile>
-      <mat-grid-tile colspan="2">
-        <p class="align-left">Celular: 123456789</p>
+      <mat-grid-tile colspan="2" *ngIf="boleta">
+        <p class="align-left">Doc Cliente: DNI: {{usuario.usu_dni}}</p>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2" *ngIf="boleta">
+        <p class="align-left">Cliente: {{nombreConcatenado}}</p>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2" *ngIf="boleta">
+        <p class="align-left">Email : {{usuario.usu_email}}</p>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2" *ngIf="boleta">
+        <p class="align-left">Celular: {{usuario.usu_celular}}</p>
       </mat-grid-tile>
     </mat-grid-list>
     <mat-divider></mat-divider>
