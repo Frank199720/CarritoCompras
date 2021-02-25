@@ -47,8 +47,8 @@
         <mat-form-field appearance="fill">
             <mat-label>Departamento</mat-label>
             <mat-select [(ngModel)]="usuario.department_id" [formControl]="departamento">
-                <mat-option value="poner">
-                    poner
+                <mat-option [value]="departamento.id" *ngFor="let departamento of departamentos">
+                    {{departamento.name}}
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="departamento.hasError('required')">Seleccione departamento</mat-error>

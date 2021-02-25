@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Usuario } from '../../../../interfaces/usuario';
+import { Departamento } from '../../../../interfaces/departamento';
+import { Provincia } from '../../../../interfaces/provincia';
+import { Distrito } from '../../../../interfaces/distrito';
 import { UsuarioService } from '../../../../services/usuario.service';
+import { UbicacionService } from '../../../../services/ubicacion.service';
 import { AuthService } from '../../../../services/auth.service';
 import { User } from '../../../../interfaces/user';
 
@@ -24,7 +28,9 @@ export class DatosComponent implements OnInit {
   editar:Boolean = false;
   usuario:User;;
 
-  constructor(private usuarioService:UsuarioService, private AuthService:AuthService) { 
+  departamentos:Departamento[];
+
+  constructor(private usuarioService:UsuarioService, private AuthService:AuthService, private ubicacion:UbicacionService) { 
     // usuarioService.login('alex@gmail.com','1234').subscribe((data:Usuario)=>{
     //   console.log(data);
     //   this.usuario = data[0];
@@ -32,7 +38,9 @@ export class DatosComponent implements OnInit {
     //   console.log(this.usuario.usu_nombres);
     // });
     this.usuario=AuthService.user;
-    
+    ubicacion.getDepartamentos().subscribe((data:Departamento[])=>{
+      this.departamentos = data;
+    });
   }
 
   ngOnInit(): void {
