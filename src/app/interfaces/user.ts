@@ -10,4 +10,5 @@ export interface User {
     department_id?:string;
     province_id?:string;
     district_id?:string;
+    usu_fech_reg?:Date;
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../interfaces/usuario';
 import { environment } from '../../environments/environment';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,11 @@ export class UsuarioService {
     return this.HttpClient.get(this.ruta + '/login/' + email + '/' + password);
   }
 
-  store(usuario:Usuario){
+  store(usuario:User){
     return this.HttpClient.post(this.ruta + '/usuario', usuario);
   }
 
-  update(usuario:Usuario, id){
+  update(usuario:User, id){
     return this.HttpClient.put(this.ruta + '/usuario/' + id, usuario);
   }
 
