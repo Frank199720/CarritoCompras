@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { GeneralService } from '../../services/general.service';
 import { AuthService } from '../../services/auth.service';
+import { Usuario } from '../../interfaces/usuario';
+import { User } from '../../interfaces/user';
 @Component({
   selector: 'app-compra',
   templateUrl: './compra.component.html',
@@ -26,7 +28,15 @@ export class CompraComponent implements OnInit {
   ) {
     //this.formDireccion = this.createFormGroup();
     console.log(AuthService.user);
+    this.nombreConcatenado=this.usuario.usu_nombres+' '+this.usuario.usu_apellidos;
+    this.getDateCurrent();
   }
+  public fechaActual:String;
+  dateCurrent: Date = new Date();
+  anio_current: string;
+  current_date: string;
+  public verificaPaso:boolean=false;
+  public opcional :boolean = false;
   public deliveryObject: Delivery = {
     del_precio: 10,
     del_fentrega: null,
@@ -40,6 +50,18 @@ export class CompraComponent implements OnInit {
   public ruc: string;
   public razon_social: string;
   public nombreConcatenado:string;
+  public usuario:User ={
+    usu_dni:this.AuthService.user.usu_dni,
+    usu_email:this.AuthService.user.usu_email,
+    usu_apellidos:this.AuthService.user.usu_apellidos,
+    usu_nombres:this.AuthService.user.usu_nombres,
+    usu_telefono:this.AuthService.user.usu_telefono,
+    usu_direccion:this.AuthService.user.usu_direccion,
+    usu_celular:this.AuthService.user.usu_celular,
+    department_id: this.AuthService.user.department_id,
+    district_id:this.AuthService.user.district_id,
+    province_id:this.AuthService.user.province_id
+  };
   /*formDireccion: FormGroup;
   
   createFormGroup(){
@@ -54,6 +76,7 @@ export class CompraComponent implements OnInit {
   delivery: Boolean = true;
   boleta: Boolean = true;
   firstFormGroup: FormGroup;
+  secondFormControl:FormGroup;
   cant = [1, 2, 3];
 
   direccion = new FormControl('', [Validators.required]);
@@ -129,5 +152,20 @@ export class CompraComponent implements OnInit {
       .then((res) => {
         this.razon_social = res.razonSocial;
       });
+  }
+  getDateCurrent() {
+    this.anio_current = this.dateCurrent.getFullYear().toString();
+    console.log(this.dateCurrent.getDate());
+    let mes =
+      this.dateCurrent.getMonth() + 1 >= 10
+        ? (this.dateCurrent.getMonth() + 1).toString()
+        : "0" + (this.dateCurrent.getMonth() + 1).toString();
+    let dia =
+      this.dateCurrent.getDate() >= 10
+        ? this.dateCurrent.getDate().toString()
+        : "0" + this.dateCurrent.getDate().toString();
+    this.fechaActual = dia+'/'+mes+'/'+this.anio_current;
+
+   
   }
 }

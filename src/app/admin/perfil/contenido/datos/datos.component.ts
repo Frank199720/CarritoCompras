@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Usuario } from '../../../../interfaces/usuario';
 import { UsuarioService } from '../../../../services/usuario.service';
 import { AuthService } from '../../../../services/auth.service';
+import { User } from '../../../../interfaces/user';
 
 @Component({
   selector: 'app-datos',
@@ -21,7 +22,7 @@ export class DatosComponent implements OnInit {
   distrito = new FormControl({ value: '', disabled: true }, [Validators.required]);
 
   editar:Boolean = false;
-  usuario:Usuario = {};
+  usuario:User;;
 
   constructor(private usuarioService:UsuarioService, private AuthService:AuthService) { 
     // usuarioService.login('alex@gmail.com','1234').subscribe((data:Usuario)=>{

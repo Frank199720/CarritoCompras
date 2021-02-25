@@ -1,5 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../../../interfaces/user';
 
 @Component({
   selector: 'app-compras',
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class ComprasComponent implements OnInit {
 
   prueba = []
-
+  public usuario:User;
   constructor() { }
 
   ngOnInit(): void {
