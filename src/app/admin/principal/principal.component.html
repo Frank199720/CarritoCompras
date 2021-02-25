@@ -1,12 +1,5 @@
-<!-- <div class="card">
-    <div class="card-header">
-        Bolsa de compras
-    </div>
-    <div class="card-header">
-        
-    </div>
-    <div class="card-header">
-        <button type="button" class="btn btn-success" (click)="agregar()">Agregar</button>
-        <p *ngFor="let item of carrito.data">{{item.superhero}}</p>    
-    </div>
-</div> -->
+<mat-grid-list cols="3" rowHeight="500px">
+    <mat-grid-tile [colspan]="1" *ngFor="let item of departamentos">
+        <app-cards [departamento]="item"></app-cards>
+    </mat-grid-tile>
+</mat-grid-list>

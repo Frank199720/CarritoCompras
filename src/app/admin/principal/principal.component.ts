@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Prueba } from 'src/app/interfaces/prueba';
 import { CarService } from 'src/app/services/car.service';
+import { Departamento } from '../../interfaces/departamento';
+import { DepartamentoService } from '../../services/departamento.service';
 
 @Component({
   selector: 'app-principal',
@@ -9,7 +11,13 @@ import { CarService } from 'src/app/services/car.service';
 })
 export class PrincipalComponent implements OnInit {
 
-  constructor(public carrito:CarService) { }
+  departamentos:Departamento[];
+
+  constructor(public carrito:CarService, private departamentoService:DepartamentoService) { 
+    departamentoService.index().subscribe((data:Departamento[])=>{
+      this.departamentos = data;
+    });
+  }
   
   ngOnInit(): void {
     // console.log(this.carrito.data);

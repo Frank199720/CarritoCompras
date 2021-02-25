@@ -24,6 +24,7 @@ import { ComprasComponent } from './perfil/contenido/compras/compras.component';
 import { DetalleCompraComponent } from './perfil/contenido/detalle-compra/detalle-compra.component';
 import { ItemComponent } from './compra/item/item.component';
 import { TarjetaComponent } from './producto/carrito/tarjeta/tarjeta.component';
+import { CardsComponent } from './principal/cards/cards.component';
 
 
 
@@ -48,7 +49,8 @@ import { TarjetaComponent } from './producto/carrito/tarjeta/tarjeta.component';
     ComprasComponent,
     DetalleCompraComponent,
     ItemComponent,
-    TarjetaComponent],
+    TarjetaComponent,
+    CardsComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
