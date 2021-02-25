@@ -15,4 +15,13 @@ export class DashboardService {
   obtenerVentasxMesActual(){
     return this.HttpClient.get(this.ruta+'/comprasxM');
   }
+  obtenerProductosTop(){
+    return this.HttpClient.get(this.ruta+'/listarTOP');
+  }
+  obtenerClientesTop(){
+    return this.HttpClient.get(this.ruta+'/TOPUsuarios');
+  }
+  obtenerClientes(){
+    return this.HttpClient.get(this.ruta+'/usuariosCant');
+  }
 }

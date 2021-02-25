@@ -8,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class SidebarAdminComponent implements OnInit {
 
   constructor() { }
-
+  cerrarSesion(){
+    localStorage.removeItem('arreglo');
+    localStorage.removeItem('token');
+    location.reload();
+  }
   ngOnInit(): void {
   }
-
+  
 }
