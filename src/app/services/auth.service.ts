@@ -30,6 +30,21 @@ export class AuthService {
       );
     console.log(this._user);
   }
+  loginAdmin(login: string, password: string) {
+    return this.httpClient
+      .get<User>(this.ruta + '/login/' + login + '/' + password)
+      .pipe(
+        tap((user) => (this._user = user[0])),
+        tap((user) => {
+          
+          if (user[0].usu_rol=='admin') localStorage.setItem('token', user[0].usu_dni);
+        }),
+        tap(()=>{
+          this.loginService=true;
+        })
+      );
+    console.log(this._user);
+  }
   verificaAuth(): Observable<boolean> {
     if (!localStorage.getItem('token')) {
       console.log('aaaj');
@@ -47,6 +62,27 @@ export class AuthService {
         })
       );
     }
+  }
+  verifyAuthAdmin():Observable<boolean>{
+    if(!localStorage.getItem('token')){
+      return of(false);
+    }else{
+      let id=localStorage.getItem('token');
+      console.log(id);
+      return this.httpClient.get<User>(this.ruta+'/verified/'+id)
+      .pipe(
+        tap((user) => (this._user = user[0])),
+        map(user=>{
+            if(user[0].usu_rol=='admin'){
+              
+              return true
+            }
+            
+            else return false;
+        })
+      )
+    }
+    
   }
   cargarData(){
     

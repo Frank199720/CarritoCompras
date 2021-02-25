@@ -49,4 +49,12 @@ export class HeaderComponent implements OnInit {
   verificarAuht(){
     return this.AuthService.cargarData();
   }
+  cerrarSesion(){
+    console.log("hola");
+    localStorage.removeItem('token');
+    localStorage.removeItem('arreglo');
+    this.carrito.numeroVentas=0;
+    this.carrito.totalVenta=0;
+    location.reload();
+  }
 }

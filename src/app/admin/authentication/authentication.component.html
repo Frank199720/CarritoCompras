@@ -29,6 +29,9 @@
               <div class="col text-center">
                 <button mat-raised-button (click)="iniciarSesion()">Ingresar</button>
               </div>
+              <div class="col text-center">
+                <button mat-raised-button (click)="iniciarSesionAdmin()">Ingresar administrador</button>
+              </div>
             </div>
           </mat-card-content>
         </mat-card>
@@ -38,7 +41,7 @@
           <mat-card-header>
             <div class="row">
               <div class="col-12 text-center">
-                <mat-card-title>Ya estoy registrado</mat-card-title>
+                <mat-card-title>Registrate!</mat-card-title>
               </div>
               <div class="col-12 text-center">
                 <mat-card-subtitle>Disfruta de una compra rápida y personalizada. Aprovecha nuestros
@@ -56,51 +59,63 @@
               </mat-form-field>
               <mat-form-field class="example-full-width" class="col-12">
                 <mat-label>Apellidos</mat-label>
-                <input matInput>
+                <input matInput formControlName="apellidos">
+                <mat-error *ngIf="apellidos.hasError('required')">Ingrese apellidos</mat-error>
               </mat-form-field>
               <mat-form-field class="example-full-width" class="col-12">
                 <mat-label>Email</mat-label>
-                <input matInput>
+                <input matInput formControlName="correo">
+                <mat-error *ngIf="correo.hasError('required')">Ingrese correo</mat-error>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" class="col-12">
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="contrasenia" type="password">
+                <mat-error *ngIf="contrasenia.hasError('required')">Ingrese correo</mat-error>
               </mat-form-field>
               <mat-form-field class="example-full-width" class="col-6">
                 <mat-label>Telefono</mat-label>
-                <input matInput>
+                <input matInput formControlName="telefono">
+                <mat-error *ngIf="telefono.hasError('required')">Ingrese Telefono</mat-error>
               </mat-form-field>
               <mat-form-field class="example-full-width" class="col-6">
                 <mat-label>Celular</mat-label>
-                <input matInput>
+                <input matInput formControlName="celular">
+                <mat-error *ngIf="celular.hasError('required')">Ingrese Celular</mat-error>
               </mat-form-field>
               <mat-form-field class="example-full-width" class="col-12">
                 <mat-label>DNI</mat-label>
-                <input matInput>
+                <input matInput formControlName="dni">
+                <mat-error *ngIf="dni.hasError('required')">Ingrese DNI</mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill" class="col-12">
                 <mat-label>Departamento</mat-label>
-                <mat-select>
+                <mat-select formControlName="departamento" (selectionChange)="selectDep(departamento)">
                   <mat-option>Clear</mat-option>
-                  <mat-option value="valid">Valid option</mat-option>
-                  <mat-option value="invalid">Invalid option</mat-option>
+                  <mat-option [value]="item.id" *ngFor="let item of departamentos">{{item.name}}</mat-option>
+                  
                 </mat-select>
+                <mat-error *ngIf="departamento.hasError('required')">Seleccione Departamentos</mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill" class="col-12">
                 <mat-label>Provincia</mat-label>
-                <mat-select>
+                <mat-select formControlName="provincia" (selectionChange)="selectProv(provincia)">
                   <mat-option>Clear</mat-option>
-                  <mat-option value="valid">Valid option</mat-option>
-                  <mat-option value="invalid">Invalid option</mat-option>
+                  <mat-option [value]="item.id" *ngFor="let item of provincias">{{item.name}}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="provincia.hasError('required')">Seleccione Departamentos</mat-error>
               </mat-form-field>
               <mat-form-field appearance="fill" class="col-12">
                 <mat-label>Distrito</mat-label>
-                <mat-select>
+                <mat-select formControlName="distrito">
                   <mat-option>Clear</mat-option>
-                  <mat-option value="valid">Valid option</mat-option>
-                  <mat-option value="invalid">Invalid option</mat-option>
+                  <mat-option [value]="item.id" *ngFor="let item of distritos">{{item.name}}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="distrito.hasError('required')">Seleccione Departamentos</mat-error>
               </mat-form-field>
               <mat-form-field class="example-full-width" class="col-12">
                 <mat-label>Dirección</mat-label>
-                <input matInput>
+                <input matInput  formControlName="direccion">
+                <mat-error *ngIf="direccion.hasError('required')">Seleccione Departamentos</mat-error>
               </mat-form-field>
               <div class="col text-center">
                 <button mat-raised-button (click)="registrar()">Registrarme</button>

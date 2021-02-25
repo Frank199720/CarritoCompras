@@ -19,7 +19,7 @@ export class ProductoindiComponent implements OnInit {
   addtoCar() {
     console.log(this.arreglo_nuevo);
     if (
-      this.producto.pro_cantidad - this.producto.pro_cantidad_elegida <=
+      this.producto.pro_cantidad - this.producto.pro_cantidad_elegida <
       this.producto.pro_stock
     ) {
       this.showMessage('Error!', 'Cantidad no permitida', 'error');
