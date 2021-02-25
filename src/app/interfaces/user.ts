@@ -7,7 +7,7 @@ export interface User {
     usu_telefono:string;
     usu_celular:string;
     usu_direccion:string;
-    department_id:number;
-    province_id:number;
-    district_id:number;
+    department_id:string;
+    province_id:string;
+    district_id:string;
 }
