@@ -4,3 +4,9 @@ p{
 mat-list-option{
     width: 70px;
 }
+a{
+    color: black;
+}
+a:hover {
+    color: darkblue;
+}

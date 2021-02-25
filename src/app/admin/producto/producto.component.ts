@@ -4,6 +4,7 @@ import { PruebaService } from 'src/app/services/prueba.service';
 import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../../interfaces/producto';
 import { ProductoService } from '../../services/producto.service';
+
 @Component({
   selector: 'app-producto',
   templateUrl: './producto.component.html',

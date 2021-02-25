@@ -1,50 +1,51 @@
 <div class="row">
-    <p>BOLETA O FACTURA</p>
+    <p>{{cabezera.com_tipodoi == "RUC" ? 'FACTURA' : 'BOLETA'}}</p>
 </div>
 <div class="row">
-    <p>Tienda: online</p><p>Fecha: hoy</p>
+    <p>Tienda: online</p><p>Fecha: {{cabezera.com_fecha}}</p>
 </div>
 <div class="row">
-    <p>Nombre Cliente: Alexander Silvera</p><p>Factura Nro: 010 154896</p>
+    <p>Nombre Cliente: {{nombres}}</p><p>{{cabezera.com_tipodoi == "RUC" ? 'FACTURA' : 'BOLETA'}} Nro: {{cabezera.nrocomprobante}}</p>
 </div>
 <div class="row">
-    <p>Doc Cliente: DNI: 12345678</p>
+    <p>Doc Cliente: {{cabezera.com_tipodoi}}: {{cabezera.com_doi}}</p>
 </div>
 <div class="row">
-    <p>Email Cliente: alguien@example.com</p>
+    <p>Email Cliente: {{email}}</p>
 </div>
 <div class="row">
-    <p>Celular: 123456789</p>
+    <p>Celular: {{celular}}</p>
 </div>
 <div class="example-container mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
-  
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      <ng-container matColumnDef="pro_id">
+        <th mat-header-cell *matHeaderCellDef> CODIGO </th>
+        <td mat-cell *matCellDef="let element"> {{element.pro_id}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="pro_nombre">
+        <th mat-header-cell *matHeaderCellDef> DESCRIPCION DEL PRODUCTO </th>
+        <td mat-cell *matCellDef="let element"> {{element.pro_nombre}} </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
   
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <ng-container matColumnDef="dco_punitario">
+        <th mat-header-cell *matHeaderCellDef> CANTIDAD </th>
+        <td mat-cell *matCellDef="let element"> {{element.dco_punitario}} </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
   
-      <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef> Weight </th>
-        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+      <ng-container matColumnDef="dco_cantidad">
+        <th mat-header-cell *matHeaderCellDef> PRECIO U. </th>
+        <td mat-cell *matCellDef="let element"> {{element.dco_cantidad}} </td>
         <td mat-footer-cell *matFooterCellDef>Total</td>
       </ng-container>
-  
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef> Symbol </th>
-        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-        <td mat-footer-cell *matFooterCellDef> S/ 1000.00</td>
+
+      <ng-container matColumnDef="dco_subtotal">
+        <th mat-header-cell *matHeaderCellDef> SUBTOTAL </th>
+        <td mat-cell *matCellDef="let element"> {{element.dco_subtotal}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{cabezera.com_total}} </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

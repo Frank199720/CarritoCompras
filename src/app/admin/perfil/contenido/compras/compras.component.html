@@ -11,34 +11,28 @@
     <mat-grid-tile colspan="1">
         <p>Doc identidad</p>
     </mat-grid-tile>
-    <mat-grid-tile colspan="1">
+    <mat-grid-tile colspan="2">
         <p>Cliente</p>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="1">
-        <p>Estado</p>
     </mat-grid-tile>
     <mat-grid-tile colspan="1">
         <p>Fecha</p>
     </mat-grid-tile>
 </mat-grid-list>
 <mat-divider></mat-divider>
-<mat-grid-list cols="5" rowHeight="70px">
-    <mat-list *ngFor="let item of prueba">
-        <a [routerLink]="['../detalleCompra']">
+<mat-grid-list cols="5" rowHeight="50px">
+    <mat-list *ngFor="let item of cabezera">
+        <a [routerLink]="['../detalleCompra', item.com_num]">
             <mat-grid-tile colspan="1">
-                <p>001 000100</p>
+                <p class="detalle">{{item.nrocomprobante}}</p>
             </mat-grid-tile>
             <mat-grid-tile colspan="1">
-                <p>123456789</p>
+                <p class="detalle">{{item.com_doi}}</p>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <p class="detalle">{{nombres}}</p>
             </mat-grid-tile>
             <mat-grid-tile colspan="1">
-                <p>Silvera Curi</p>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="1">
-                <p>Entregado</p>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="1">
-                <p>Hoy</p>
+                <p class="detalle">{{item.com_fecha}}</p>
             </mat-grid-tile>
         </a>
     </mat-list>
