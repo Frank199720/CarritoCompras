@@ -113,7 +113,7 @@
                   class="nav-item mr-2 mr-md-0"
                   data-toggle="chart"
                   data-target="#chart-sales"
-                  (click)="data = datasets[0]; updateOptions()"
+                  
                 >
                   <a
                     href="javascript:void(0)"
@@ -123,26 +123,10 @@
                     (click)="clicked = true; clicked1 = false"
                   >
                     <span class="d-none d-md-block">Mes</span>
-                    <span class="d-md-none">M</span>
-                  </a>
-                </li>
-                <li
-                  class="nav-item"
-                  data-toggle="chart"
-                  data-target="#chart-sales"
-                  (click)="data = datasets[1]; updateOptions()"
-                >
-                  <a
-                    href="javascript:void(0)"
-                    class="nav-link py-2 px-3"
-                    [ngClass]="{ active: clicked1 === true }"
-                    data-toggle="tab"
-                    (click)="clicked = false; clicked1 = true"
-                  >
                     
-                    <span class="d-md-none">W</span>
                   </a>
                 </li>
+                
               </ul>
             </div>
           </div>
@@ -161,8 +145,8 @@
         <div class="card-header bg-transparent">
           <div class="row align-items-center">
             <div class="col">
-              <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-              <h2 class="mb-0">Total orders</h2>
+              <h6 class="text-uppercase text-muted ls-1 mb-1">Ventas</h6>
+              <h2 class="mb-0">Ventas por periodo</h2>
             </div>
           </div>
         </div>

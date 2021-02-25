@@ -308,6 +308,7 @@ export class CompraComponent implements OnInit {
   guardarCompra(){
     this.CabeceraCompra.com_descuento=0;
     this.CabeceraCompra.com_fecha=this.fechaActual;
+    //this.CabeceraCompra.com_periodo=this.periodo;
     this.CabeceraCompra.com_periodo=this.periodo;
     this.CabeceraCompra.com_totalneto=this.carService.totalVenta+this.precioDelivery;
     if(this.boleta) this.CabeceraCompra.ti_id=2;

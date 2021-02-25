@@ -71,11 +71,36 @@ export class AuthenticationComponent implements OnInit {
     this.AuthService.login(this.user_name,this.user_password).subscribe(resp=>{
       console.log(resp);
       if(resp[0]){
-
-        if(resp[0].usu_dni){
+        
+        if(resp[0].usu_id!=''){
           this.router.navigateByUrl('/shop/principal');
         }else{
-          alert("xd");
+          console.log(resp[0].usu_dni);
+        }
+      }else{
+        Swal.fire({
+          title:'Error',
+          text:'Credenciales no validas',
+          icon:'warning'
+        })
+      }
+      
+      
+    })
+  }
+  iniciarSesionAdmin(){
+this.AuthService.loginAdmin(this.user_name,this.user_password).subscribe(resp=>{
+      console.log(resp);
+      if(resp[0]){
+        
+        if(resp[0].usu_id!=''){
+          if(resp[0].usu_rol=='admin')
+          this.router.navigateByUrl('/administrador/pag');
+          else{
+            this.showMessage('Error','Usted no tiene acceso a este sitio','error');
+          }
+        }else{
+          console.log(resp[0].usu_dni);
         }
       }else{
         Swal.fire({
