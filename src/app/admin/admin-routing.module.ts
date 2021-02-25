@@ -37,7 +37,7 @@ const routes:Routes =[
       { path:'contraseña', component:PasswordComponent },
      
       { path:'compras', component:ComprasComponent },
-      { path:'detalleCompra', component:DetalleCompraComponent }
+      { path:'detalleCompra/:id', component:DetalleCompraComponent }
 
     ]
   }
