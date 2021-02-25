@@ -46,7 +46,7 @@
     <mat-grid-tile colspan="1">
         <mat-form-field appearance="fill">
             <mat-label>Departamento</mat-label>
-            <mat-select [(ngModel)]="usuario.department_id" [formControl]="departamento">
+            <mat-select [(ngModel)]="usuario.department_id" [formControl]="departamento" (selectionChange)="selectDep(departamento)">
                 <mat-option [value]="departamento.id" *ngFor="let departamento of departamentos">
                     {{departamento.name}}
                 </mat-option>
@@ -57,9 +57,9 @@
     <mat-grid-tile colspan="1">
         <mat-form-field appearance="fill">
             <mat-label>Provincia</mat-label>
-            <mat-select [(ngModel)]="usuario.province_id" [formControl]="provincia">
-                <mat-option value="poner">
-                    poner
+            <mat-select [(ngModel)]="usuario.province_id" [formControl]="provincia" (selectionChange)="selectProv(provincia)">
+                <mat-option [value]="provincia.id" *ngFor="let provincia of provincias">
+                    {{provincia.name}}
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="provincia.hasError('required')">Seleccione provincia</mat-error>
@@ -69,8 +69,8 @@
         <mat-form-field appearance="fill">
             <mat-label>Distrito</mat-label>
             <mat-select [(ngModel)]="usuario.district_id" [formControl]="distrito">
-                <mat-option value="poner">
-                    poner
+                <mat-option [value]="distrito.id" *ngFor="let distrito of distritos">
+                    {{distrito.name}}
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="distrito.hasError('required')">Seleccione distrito</mat-error>

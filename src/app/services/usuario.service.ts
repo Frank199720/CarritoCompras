@@ -17,8 +17,12 @@ export class UsuarioService {
     return this.HttpClient.post(this.ruta + '/usuario', usuario);
   }
 
-  passwordUpdate(password, id){
-    return this.HttpClient.put(this.ruta + '/passwordUpdate/' + id, password);
+  update(usuario:Usuario, id){
+    return this.HttpClient.put(this.ruta + '/usuario/' + id, usuario);
+  }
+
+  passwordUpdate(password, id, currentPassword){
+    return this.HttpClient.put(this.ruta + '/passwordUpdate/' + id + '/' + currentPassword, password);
   }
 
   /*passwordUpdate(password, id){

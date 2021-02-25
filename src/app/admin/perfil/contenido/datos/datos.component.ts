@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Usuario } from '../../../../interfaces/usuario';
 import { Departamento } from '../../../../interfaces/departamento';
 import { Provincia } from '../../../../interfaces/provincia';
 import { Distrito } from '../../../../interfaces/distrito';
@@ -8,6 +7,7 @@ import { UsuarioService } from '../../../../services/usuario.service';
 import { UbicacionService } from '../../../../services/ubicacion.service';
 import { AuthService } from '../../../../services/auth.service';
 import { User } from '../../../../interfaces/user';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-datos',
@@ -26,20 +26,33 @@ export class DatosComponent implements OnInit {
   distrito = new FormControl({ value: '', disabled: true }, [Validators.required]);
 
   editar:Boolean = false;
-  usuario:User;;
+  usuario:User = {
+    usu_dni: this.authService.user.usu_dni,
+    usu_email: this.authService.user.usu_email,
+    usu_password: this.authService.user.usu_password,
+    usu_apellidos: this.authService.user.usu_apellidos,
+    usu_nombres: this.authService.user.usu_nombres,
+    usu_telefono: this.authService.user.usu_telefono,
+    usu_celular: this.authService.user.usu_celular,
+    usu_direccion: this.authService.user.usu_direccion,
+    department_id: this.authService.user.department_id,
+    province_id: this.authService.user.province_id,
+    district_id: this.authService.user.district_id,
+  };
 
   departamentos:Departamento[];
+  provincias:Provincia[];
+  distritos:Distrito[];
 
-  constructor(private usuarioService:UsuarioService, private AuthService:AuthService, private ubicacion:UbicacionService) { 
-    // usuarioService.login('alex@gmail.com','1234').subscribe((data:Usuario)=>{
-    //   console.log(data);
-    //   this.usuario = data[0];
-    //   localStorage.setItem("usuario",JSON.stringify(this.usuario));
-    //   console.log(this.usuario.usu_nombres);
-    // });
-    this.usuario=AuthService.user;
+  constructor(private usuarioService:UsuarioService, private authService:AuthService, private ubicacion:UbicacionService) { 
     ubicacion.getDepartamentos().subscribe((data:Departamento[])=>{
       this.departamentos = data;
+    });
+    ubicacion.getProvincias(this.usuario.department_id).subscribe((data:Provincia[])=>{
+      this.provincias = data;
+    });
+    ubicacion.getDistritos(this.usuario.province_id).subscribe((data:Distrito[])=>{
+      this.distritos = data;
     });
   }
 
@@ -47,14 +60,50 @@ export class DatosComponent implements OnInit {
   }
 
   actualizar(){
-    console.log(this.usuario);
+    this.usuarioService.update(this.usuario, this.usuario.usu_dni).subscribe(data=>{
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        text: 'Datos actualizados',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.deshabilitar();
+      this.editar=false;
+    },error=>{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Intetelo mas tarde!',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      this.cancelar();
+    });
   }
 
   cancelar(){
     this.deshabilitar();
     this.editar = false;
-    let user = localStorage.getItem("usuario");
-    this.usuario = JSON.parse(user);
+    this.usuario = {
+      usu_dni: this.authService.user.usu_dni,
+      usu_email: this.authService.user.usu_email,
+      usu_password: this.authService.user.usu_password,
+      usu_apellidos: this.authService.user.usu_apellidos,
+      usu_nombres: this.authService.user.usu_nombres,
+      usu_telefono: this.authService.user.usu_telefono,
+      usu_celular: this.authService.user.usu_celular,
+      usu_direccion: this.authService.user.usu_direccion,
+      department_id: this.authService.user.department_id,
+      province_id: this.authService.user.province_id,
+      district_id: this.authService.user.district_id,
+    };
+    this.ubicacion.getProvincias(this.usuario.department_id).subscribe((data:Provincia[])=>{
+      this.provincias = data;
+    });
+    this.ubicacion.getDistritos(this.usuario.province_id).subscribe((data:Distrito[])=>{
+      this.distritos = data;
+    });
   }
 
   habilitar(){
@@ -78,5 +127,17 @@ export class DatosComponent implements OnInit {
     this.departamento.disable();
     this.provincia.disable();
     this.distrito.disable();
+  }
+
+  selectDep(departamento){
+    this.ubicacion.getProvincias(departamento.value).subscribe((data:Provincia[])=>{
+      this.provincias = data;
+    });
+  }
+
+  selectProv(provincia){
+    this.ubicacion.getDistritos(provincia.value).subscribe((data:Distrito[])=>{
+      this.distritos = data;
+    });
   }
 }

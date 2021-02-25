@@ -2,6 +2,7 @@ import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { UsuarioService } from '../../../../services/usuario.service';
+import { AuthService } from '../../../../services/auth.service';
 import { Usuario } from '../../../../interfaces/usuario';
 import Swal from 'sweetalert2';
 
@@ -17,23 +18,19 @@ export class PasswordComponent implements OnInit {
   hide2 = true;
   change:boolean = false;
 
-  usuario:Usuario;
-  contrasenia;
+  dni;
+  //password;
   newContraseña:Usuario = {};
 
+  Password = new FormControl('', [Validators.required]);
   newPassword = new FormControl('', [Validators.required]); 
   confirmPassword = new FormControl('', [Validators.required]);
 
-  constructor(private usuarioService:UsuarioService) {  }
+  constructor(private usuarioService:UsuarioService, private authService:AuthService) {  }
 
-  ngOnInit(): void {
-    let user = localStorage.getItem("usuario");
-    this.usuario = JSON.parse(user);
-    this.contrasenia = this.usuario.usu_password;
-  }
+  ngOnInit(): void { }
 
-  cambiarPassword(){
-    //console.log(this.newPassword.invalid);
+  /*cambiarPassword(){
     if (this.newPassword.invalid || this.confirmPassword.invalid) {
       Swal.fire({
         icon: 'error',
@@ -45,12 +42,7 @@ export class PasswordComponent implements OnInit {
     } else {
       if (this.newPassword.value === this.confirmPassword.value) {
         this.newContraseña.usu_password = this.newPassword.value;
-        //console.log(this.newContraseña);
-        /*this.usuarioService.passwordUpdate(this.newPassword.value, this.usuario.usu_dni).subscribe(data=>{
-          console.log(data);
-        });*/
         this.usuarioService.passwordUpdate(this.newContraseña, this.usuario.usu_dni).subscribe(data=>{
-          //console.log(data);
           Swal.fire({
             icon: 'success',
             title: 'Éxito',
@@ -67,18 +59,6 @@ export class PasswordComponent implements OnInit {
             timer: 1500,
           });
         });
-        /*this.usuarioService.passwordUpdate(this.newPassword.value, this.usuario.usu_dni).subscribe(data=>{
-          console.log(this.newPassword.value);
-          Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: 'Contraseña actualizada!',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        },error=>{
-          console.log(error);
-        });*/
       } else {
         Swal.fire({
           icon: 'error',
@@ -89,13 +69,68 @@ export class PasswordComponent implements OnInit {
         });
       }
     }
-    //console.log(this.newPassword.value);
+  }*/
+
+  cambiarPassword(){
+    if (this.newPassword.invalid || this.confirmPassword.invalid || this.Password.invalid) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Hay campos vacíos!',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      if (this.newPassword.value === this.confirmPassword.value) {
+        this.newContraseña.usu_password = this.newPassword.value;
+        this.dni = this.authService.user.usu_dni;
+        this.usuarioService.passwordUpdate(this.newContraseña, this.dni, this.Password.value).subscribe(data=>{
+          if(data === 50){
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: 'La contraseña original es inválida!',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(data);
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: 'Éxito',
+              text: 'Contraseña actualizada!',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.cancelar();
+          }
+        },error=>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: 'Intentelo mas tarde!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Las contraseñas no coinciden!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    }
   }
 
   cancelar(){
     this.change=false;
+    this.Password.reset();
     this.newPassword.reset();
     this.confirmPassword.reset();
+    this.hide = true;
     this.hide1 = true;
     this.hide2 = true;
   }
