@@ -35,20 +35,24 @@ export class ProductoComponent implements OnInit {
   }
   buscando() {
     if (this.termino == '') {
-      this.pruebaService.getPrueba().subscribe((data: Prueba[]) => {
-        this.prueba = data;
+      this.productoService.getProductoByCategoria(this.categoriaSelected).subscribe((data: Prueba[]) => {
+        this.productoService.productoData = data;
         console.log(data);
       });
+    }else{
+      console.log(this.termino);
+      this.productoService.getProductoByCategoriaDesc(this.termino,this.categoriaSelected).subscribe((data: Prueba[]) => {
+        this.productoService.productoData = data;
+        console.log(data);
+      });
+      console.log('xd');
     }
-    this.pruebaService.getBusqueda(this.termino).subscribe((data: Prueba[]) => {
-      this.prueba = data;
-    });
-    console.log('xd');
+    
   }
   clear() {
     this.termino = '';
-    this.pruebaService.getPrueba().subscribe((data: Prueba[]) => {
-      this.prueba = data;
+    this.productoService.getProductoByCategoria(this.categoriaSelected).subscribe((data: Prueba[]) => {
+      this.productoService.productoData = data;
     });
   }
   

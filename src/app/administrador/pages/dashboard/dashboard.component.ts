@@ -21,12 +21,26 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
   public cantidadVentas;
+  public cantidadUsuarios;
   public data2;
   public datax=[0,0,0,0,0,0,0,0,0,0,0,0];
+  public ProductoTop:ProductoTop[];
+  public ClienteTop:ClienteTop[];
+
   constructor(private DashboardService:DashboardService){
     this.DashboardService.obtenerVentasxMesActual().subscribe((data)=>{
         this.cantidadVentas=(data[0].nrocompras);
         
+    })
+    this.DashboardService.obtenerClientes().subscribe((data)=>{
+      this.cantidadUsuarios=(data[0].cantidadusuarios);
+      
+  })
+    this.DashboardService.obtenerProductosTop().subscribe((data:ProductoTop[])=>{
+      this.ProductoTop=data;
+    })
+    this.DashboardService.obtenerClientesTop().subscribe((data:ClienteTop[])=>{
+      this.ClienteTop=data;
     })
     
   }
@@ -107,4 +121,14 @@ export class DashboardComponent implements OnInit {
     this.salesChart.data.datasets[0].data = this.data;
     this.salesChart.update();
   }
+}
+export interface ProductoTop {
+  cantidadcomprada?:number;
+  pro_nombre:string;
+ 
+}
+export interface ClienteTop {
+  comprasrealizadas?:number;
+  nombreusuario:string;
+ 
 }
