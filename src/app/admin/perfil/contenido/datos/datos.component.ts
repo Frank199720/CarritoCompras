@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Departamento } from '../../../../interfaces/departamento';
+import { Department } from '../../../../interfaces/department';
 import { Provincia } from '../../../../interfaces/provincia';
 import { Distrito } from '../../../../interfaces/distrito';
 import { UsuarioService } from '../../../../services/usuario.service';
@@ -40,12 +40,12 @@ export class DatosComponent implements OnInit {
     district_id: this.authService.user.district_id,
   };
 
-  departamentos:Departamento[];
+  departamentos:Department[];
   provincias:Provincia[];
   distritos:Distrito[];
 
   constructor(private usuarioService:UsuarioService, private authService:AuthService, private ubicacion:UbicacionService) { 
-    ubicacion.getDepartamentos().subscribe((data:Departamento[])=>{
+    ubicacion.getDepartamentos().subscribe((data:Department[])=>{
       this.departamentos = data;
     });
     ubicacion.getProvincias(this.usuario.department_id).subscribe((data:Provincia[])=>{

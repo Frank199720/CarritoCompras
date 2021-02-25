@@ -4,6 +4,7 @@ import {
   FormControl,
   FormGroup,
   Validators,
+  AbstractControl
 } from '@angular/forms';
 import { CarService } from '../../services/car.service';
 import { Delivery } from '../../interfaces/delivery';
@@ -30,7 +31,50 @@ export class CompraComponent implements OnInit {
     console.log(AuthService.user);
     this.nombreConcatenado=this.usuario.usu_nombres+' '+this.usuario.usu_apellidos;
     this.getDateCurrent();
+    this.firstFormGroup = this.createFormGroup1();
+    this.secondFormControl = this.createFormGroup2();
   }
+
+  /*firstFormGroup:FormGroup;
+  form2:FormGroup;*/
+
+  createFormGroup1(){
+    return new FormGroup({
+      direccion: new FormControl(this.AuthService.user.usu_direccion, [Validators.required]),
+      departamento: new FormControl('', [Validators.required]),
+      provincia: new FormControl('', [Validators.required]),
+      distrito: new FormControl('', [Validators.required]),
+    })
+  }
+  get direccion() { return this.firstFormGroup.get('direccion') }
+  get departamento() { return this.firstFormGroup.get('departamento') }
+  get provincia() { return this.firstFormGroup.get('provincia') }
+  get distrito() { return this.firstFormGroup.get('distrito') }
+
+  createFormGroup2(){
+    return new FormGroup({
+      cliente: new FormControl({ value: '', disabled: true },[Validators.required]),
+      clienteEmpresa: new FormControl({ value: '', disabled: true },[Validators.required]),
+      correoEmpresa: new FormControl({ value: '', disabled: true },[Validators.required]),
+      celularEmpresa: new FormControl('',[Validators.required]),
+      ruc: new FormControl('',[Validators.required]),
+      correo: new FormControl({ value: '', disabled: true },[Validators.required]),
+      dni: new FormControl({ value: '', disabled: true },[Validators.required]),
+      celularPersona: new FormControl({ value: '', disabled: true },[Validators.required]),
+      razonSocial: new FormControl({ value: '', disabled: true },[Validators.required])
+    })
+  }
+
+  get cliente() { return this.firstFormGroup.get('cliente') }
+  get clienteEmpresa() { return this.firstFormGroup.get('clienteEmpresa') }
+  get correoEmpresa() { return this.firstFormGroup.get('correoEmpresa') }
+  get celularEmpresa() { return this.firstFormGroup.get('celularEmpresa') }
+  get ruc() { return this.firstFormGroup.get('ruc') }
+  get correo() { return this.firstFormGroup.get('correo') }
+  get dni() { return this.firstFormGroup.get('dni') }
+  get celularPersona() { return this.firstFormGroup.get('celularPersona') }
+  get razonSocial() { return this.firstFormGroup.get('razonSocial') }
+
   public fechaActual:String;
   dateCurrent: Date = new Date();
   anio_current: string;
@@ -46,8 +90,8 @@ export class CompraComponent implements OnInit {
     del_district_id: null,
     del_calle: this.AuthService.user.usu_direccion,
   };
-  public bandLinear: boolean = true;
-  public ruc: string;
+  public bandLinear: boolean = false;
+  public rucSunat: string;
   public razon_social: string;
   public nombreConcatenado:string;
   public usuario:User ={
@@ -72,6 +116,7 @@ export class CompraComponent implements OnInit {
 
   get direccion() { return this.formDireccion.get("direccion") }*/
 
+
   prueba = [];
   delivery: Boolean = true;
   boleta: Boolean = true;
@@ -79,14 +124,14 @@ export class CompraComponent implements OnInit {
   secondFormControl:FormGroup;
   cant = [1, 2, 3];
 
-  direccion = new FormControl('', [Validators.required]);
+  /*direccion = new FormControl('', [Validators.required]);
   departamento = new FormControl('', [Validators.required]);
   provincia = new FormControl('', [Validators.required]);
   distrito = new FormControl('', [Validators.required]);
   telefonoFijo = new FormControl('', [Validators.required]);
   celular = new FormControl('', [Validators.required]);
   razonSocial = new FormControl('',[Validators.required]);
-  cantidad = new FormControl('', [Validators.required]);
+  cantidad = new FormControl('', [Validators.required]);*/
 
   //validar con Gard
   
@@ -97,8 +142,9 @@ export class CompraComponent implements OnInit {
     if (this.deliveryObject.del_province_id == null) return 'Faltan datos';
     return 'ok';
   }
+
   continuarDespacho() {
-    if (this.delivery) {
+    /*if (this.delivery) {
       let validacion = this.validar();
       if (validacion == 'ok') {
         this.bandLinear = true;
@@ -108,12 +154,15 @@ export class CompraComponent implements OnInit {
       this.bandLinear=true;
     } else {
       this.bandLinear=true;
+    }*/
+    if (!this.firstFormGroup.valid && !this.bandLinear) {
+      this.showMessage('Error', 'Faltan Datos', 'error');
     }
   }
   ngOnInit(): void {
     let items = localStorage.getItem('arreglo');
     this.prueba = JSON.parse(items);
-    this.firstFormGroup = this._formBuilder.group({
+    /*this.firstFormGroup = this._formBuilder.group({
       direccion: [this.AuthService.user.usu_direccion, Validators.required],
       departamento: ['', Validators.required],
       provincia: ['', Validators.required],
@@ -131,8 +180,10 @@ export class CompraComponent implements OnInit {
       dni:['',Validators.required],
       celularPersona:['',Validators.required],
       razonSocial:['',Validators.required]
-    })
+    })*/
   }
+
+  
 
   aumentar() {
     console.log(this.cant[0]);
@@ -147,7 +198,6 @@ export class CompraComponent implements OnInit {
   }
 
   selectionChange() {
-    //this.prueba[1].edad = 2;
     this.ngOnInit();
   }
   showMessage(title, text, icon) {
@@ -160,7 +210,7 @@ export class CompraComponent implements OnInit {
   buscarSunat() {
     fetch(
       'https://dniruc.apisperu.com/api/v1/ruc/' +
-        this.ruc +
+        this.rucSunat +
         '?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImZyYW5rZGVsYWNydXp1cnF1aXphQGdtYWlsLmNvbSJ9.BHlqwnoE52IhTm5_Yun2n8cpmABGitDZt10zIINFMkQ'
     )
       .then((res) => res.json())
@@ -180,11 +230,19 @@ export class CompraComponent implements OnInit {
         ? this.dateCurrent.getDate().toString()
         : "0" + this.dateCurrent.getDate().toString();
     this.fechaActual = dia+'/'+mes+'/'+this.anio_current;
-
-   
   }
-  validarSecond(band){
+
+  validarSecond(band:boolean){
     this.boleta=band;
-    this.secondFormControl.get('razonSocial').clearValidators();
+    console.log(this.boleta);
+    //this.secondFormControl.get('razonSocial').clearValidators();
+  }
+
+  banderas(){
+    console.log("bandLinear: " + this.bandLinear);
+    console.log("boleta: " + this.boleta);
+    this.firstFormGroup.clearValidators();
+    console.log("form1: " + this.firstFormGroup.valid);
+    console.log("form2: " + this.secondFormControl.valid);
   }
 }

@@ -1,4 +1,4 @@
-<mat-horizontal-stepper linear #stepper (selectionChange)="selectionChange()" >
+<mat-horizontal-stepper linear #stepper (selectionChange)="selectionChange()">
   <mat-step>
     <ng-template matStepLabel>Bolsa de compra</ng-template>
     <mat-card *ngFor="let item of carService.data">
@@ -12,9 +12,9 @@
       </mat-grid-tile>
     </mat-grid-list>
   </mat-step>
-  <mat-step [stepControl]="firstFormGroup" [optional]="!bandLinear">
+
+  <mat-step [stepControl]="firstFormGroup" [optional]="bandLinear">
     <ng-template matStepLabel>Despacho</ng-template>
-    <input type="text" />
     <div class="row">
       <div class="col-8 div-hor">
         <mat-grid-list cols="2" rowHeight="80px">
@@ -23,12 +23,8 @@
           </mat-grid-tile>
           <mat-grid-tile colspan="1">
             <div class="example-button-container">
-              <button
-                mat-fab
-                color="primary"
-                aria-label="Example icon button with a home icon"
-                (click)="delivery = true ; bandLinear=true"
-              >
+              <button mat-fab color="primary" aria-label="Example icon button with a home icon"
+                (click)="delivery = true ; bandLinear=false">
                 <mat-icon>home</mat-icon>
               </button>
             </div>
@@ -36,12 +32,8 @@
           </mat-grid-tile>
           <mat-grid-tile colspan="1">
             <div class="example-button-container">
-              <button
-                mat-fab
-                color="primary"
-                aria-label="Example icon button with a home icon"
-                (click)="delivery = false; bandLinear=false"
-              >
+              <button mat-fab color="primary" aria-label="Example icon button with a home icon"
+                (click)="delivery = false; bandLinear=true">
                 <mat-icon>location_on</mat-icon>
               </button>
             </div>
@@ -56,67 +48,42 @@
               <mat-grid-tile colspan="1">
                 <mat-form-field appearance="fill">
                   <mat-label>Direccion</mat-label>
-                  <input
-                    matInput
-                    type="text"
-                    formControlName="direccion"
-                    [(ngModel)]="deliveryObject.del_calle"
-                    required
-                  />
-                  <mat-error *ngIf="direccion.hasError('required')"
-                    >Ingrese direccion</mat-error
-                  >
+                  <input matInput type="text" formControlName="direccion" [(ngModel)]="deliveryObject.del_calle"
+                    required />
+                  <mat-error *ngIf="direccion.hasError('required')">Ingrese direccion</mat-error>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile colspan="1">
                 <mat-form-field appearance="fill">
                   <mat-label>Departamento</mat-label>
-                  <select
-                    matNativeControl
-                    formControlName="departamento"
-                    [(ngModel)]="deliveryObject.del_deparment_id"
-                    required
-                  >
+                  <select matNativeControl formControlName="departamento" [(ngModel)]="deliveryObject.del_deparment_id"
+                    required>
                     <option value="1">poner</option>
                     <option value="2">poner</option>
                   </select>
-                  <mat-error *ngIf="departamento.hasError('required')"
-                    >Seleccione departamento</mat-error
-                  >
+                  <mat-error *ngIf="departamento.hasError('required')">Seleccione departamento</mat-error>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile colspan="1">
                 <mat-form-field appearance="fill">
                   <mat-label>Provincia</mat-label>
-                  <select
-                    matNativeControl
-                    formControlName="provincia"
-                    [(ngModel)]="deliveryObject.del_province_id"
-                    required
-                  >
+                  <select matNativeControl formControlName="provincia" [(ngModel)]="deliveryObject.del_province_id"
+                    required>
                     <option value="1">poner</option>
                     <option value="2">poner</option>
                   </select>
-                  <mat-error *ngIf="provincia.hasError('required')"
-                    >Seleccione provincia</mat-error
-                  >
+                  <mat-error *ngIf="provincia.hasError('required')">Seleccione provincia</mat-error>
                 </mat-form-field>
               </mat-grid-tile>
               <mat-grid-tile colspan="1">
                 <mat-form-field appearance="fill">
                   <mat-label>Distrito</mat-label>
-                  <select
-                    matNativeControl
-                    formControlName="distrito"
-                    [(ngModel)]="deliveryObject.del_district_id"
-                    required
-                  >
+                  <select matNativeControl formControlName="distrito" [(ngModel)]="deliveryObject.del_district_id"
+                    required>
                     <option value="1">poner</option>
                     <option value="2">poner</option>
                   </select>
-                  <mat-error *ngIf="distrito.hasError('required')"
-                    >Seleccione distrito</mat-error
-                  >
+                  <mat-error *ngIf="distrito.hasError('required')">Seleccione distrito</mat-error>
                 </mat-form-field>
               </mat-grid-tile>
             </form>
@@ -137,69 +104,52 @@
           <mat-card-content *ngFor="let item of prueba">
             <mat-grid-list cols="6" rowHeight="25px">
               <mat-grid-tile colspan="2" rowspan="4">
-                <img
-                  mat-card-image
-                  src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                  alt="Photo of a Shiba Inu"
-                />
+                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                  alt="Photo of a Shiba Inu" />
               </mat-grid-tile>
               <mat-grid-tile colspan="4" rowspan="1">
                 <mat-card-title>{{ item.pro_nombre }}</mat-card-title>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
-                <mat-card-subtitle class="align-left"
-                  >Cantidad</mat-card-subtitle
-                >
+                <mat-card-subtitle class="align-left">Cantidad</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
                 <mat-card-subtitle class="align-right">{{
                   item.pro_cantidad_elegida
-                }}</mat-card-subtitle>
+                  }}</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
-                <mat-card-subtitle class="align-left"
-                  >Precio Unitario</mat-card-subtitle
-                >
+                <mat-card-subtitle class="align-left">Precio Unitario</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
                 <mat-card-subtitle class="align-right">{{
                   item.pro_precio
-                }}</mat-card-subtitle>
+                  }}</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
-                <mat-card-subtitle class="align-left"
-                  >Subtotal</mat-card-subtitle
-                >
+                <mat-card-subtitle class="align-left">Subtotal</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
                 <mat-card-subtitle class="align-right">{{
                   item.pro_precio * item.pro_cantidad_elegida
-                }}</mat-card-subtitle>
-              </mat-grid-tile> </mat-grid-list
-            ><br />
+                  }}</mat-card-subtitle>
+              </mat-grid-tile>
+            </mat-grid-list><br />
             <mat-divider></mat-divider>
           </mat-card-content>
         </mat-list>
         <mat-card-footer>
           <mat-grid-list cols="6" rowHeight="50px">
             <mat-grid-tile colspan="3">
-              <mat-card-subtitle class="totales align-left"
-                >TOTAL NORMAL:</mat-card-subtitle
-              >
+              <mat-card-subtitle class="totales align-left">TOTAL NORMAL:</mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="3">
               <mat-card-subtitle class="totales align-right">{{
                 carService.totalVenta
-              }}</mat-card-subtitle>
+                }}</mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="6">
-              <button
-                type="button"
-                mat-flat-button
-                matStepperNext
-                color="primary"
-                (click)="continuarDespacho()"
-              >
+              <button type="button" mat-flat-button matStepperNext color="primary" (click)="continuarDespacho()">
                 Continuar
               </button>
             </mat-grid-tile>
@@ -208,7 +158,8 @@
       </div>
     </div>
   </mat-step>
-  <mat-step [stepControl]="secondFormControl">
+
+  <mat-step [stepControl]="secondFormControl" [optional]="boleta">
     <ng-template matStepLabel>Pago</ng-template>
     <div class="row">
       <div class="col-8 div-hor">
@@ -218,12 +169,8 @@
           </mat-grid-tile>
           <mat-grid-tile colspan="1">
             <div class="example-button-container">
-              <button
-                mat-fab
-                color="primary"
-                aria-label="Example icon button with a home icon"
-                (click)="validarSecond(true)"
-              >
+              <button mat-fab color="primary" aria-label="Example icon button with a home icon"
+                (click)="validarSecond(true)">
                 <mat-icon>person</mat-icon>
               </button>
             </div>
@@ -231,100 +178,80 @@
           </mat-grid-tile>
           <mat-grid-tile colspan="1">
             <div class="example-button-container">
-              <button
-                mat-fab
-                color="primary"
-                aria-label="Example icon button with a home icon"
-                (click)="validarSecond(false)"
-              >
+              <button mat-fab color="primary" aria-label="Example icon button with a home icon"
+                (click)="validarSecond(false)">
                 <mat-icon>corporate_fare</mat-icon>
               </button>
             </div>
             <p class="align-left">Factura</p>
           </mat-grid-tile>
           <form [formGroup]="secondFormControl">
-          <div *ngIf="boleta">
-            <mat-grid-tile colspan="2">
-              <mat-form-field appearance="fill" class="input-pago-lg">
-                <mat-label>Nombre cliente</mat-label>
-                <input matInput type="text" [(ngModel)]="nombreConcatenado" disabled formControlName="cliente"/>
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="2">
-              <mat-form-field appearance="fill" class="input-pago-lg">
-                <mat-label>Email cliente</mat-label>
-                <input
-                  matInput
-                  type="email"
-                  [(ngModel)]="usuario.usu_email"
-                  
-                  formControlName="correo"
-                  disabled
-                />
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="1">
-              <mat-form-field appearance="fill">
-                <mat-label>Doc cliente</mat-label>
-                <input matInput type="text"  [(ngModel)]="usuario.usu_dni" formControlName="dni" disabled />
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="1">
-              <mat-form-field appearance="fill">
-                <mat-label>Celular</mat-label>
-                <input matInput type="text" [(ngModel)]="usuario.usu_celular" formControlName="celularPersona" disabled />
-              </mat-form-field>
-            </mat-grid-tile>
-          </div>
-          <div *ngIf="!boleta">
-            <mat-grid-tile colspan="2">
-              <mat-form-field appearance="fill" class="input-pago-lg">
-                <mat-label>Nombre representante</mat-label>
-                <input matInput type="text" value="nombre" [(ngModel)]="nombreConcatenado" formControlName="clienteEmpresa" disabled />
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="2">
-              <mat-form-field appearance="fill" class="input-pago-lg">
-                <mat-label>Email cliente</mat-label>
-                <input
-                  matInput
-                  type="email"
-                  formControlName="correoEmpresa"
-                  [(ngModel)]="usuario.usu_email"
-                  disabled
-                />
-              </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="1">
-              <mat-form-field appearance="fill">
-                <mat-label>Doc cliente</mat-label>
-                <input matInput type="text" placeholder="RUC: " formControlName="ruc" [(ngModel)]="ruc"/>
-              </mat-form-field>
+            <div *ngIf="boleta">
+              <mat-grid-tile colspan="2">
+                <mat-form-field appearance="fill" class="input-pago-lg">
+                  <mat-label>Nombre cliente</mat-label>
+                  <input matInput type="text" [(ngModel)]="nombreConcatenado" formControlName="cliente">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2">
+                <mat-form-field appearance="fill" class="input-pago-lg">
+                  <mat-label>Email cliente</mat-label>
+                  <input matInput type="email" [(ngModel)]="usuario.usu_email" formControlName="correo">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="1">
+                <mat-form-field appearance="fill">
+                  <mat-label>Doc cliente</mat-label>
+                  <input matInput type="text" [(ngModel)]="usuario.usu_dni" formControlName="dni">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="1">
+                <mat-form-field appearance="fill">
+                  <mat-label>Celular</mat-label>
+                  <input matInput type="text" [(ngModel)]="usuario.usu_celular" formControlName="celularPersona">
+                </mat-form-field>
+              </mat-grid-tile>
+            </div>
+            <div *ngIf="!boleta">
+              <mat-grid-tile colspan="2">
+                <mat-form-field appearance="fill" class="input-pago-lg">
+                  <mat-label>Nombre representante</mat-label>
+                  <input matInput type="text" value="nombre" [(ngModel)]="nombreConcatenado"
+                    formControlName="clienteEmpresa">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2">
+                <mat-form-field appearance="fill" class="input-pago-lg">
+                  <mat-label>Email cliente</mat-label>
+                  <input matInput type="email" formControlName="correoEmpresa" [(ngModel)]="usuario.usu_email">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="1">
+                <mat-form-field appearance="fill">
+                  <mat-label>Doc cliente</mat-label>
+                  <input matInput type="text" placeholder="RUC: " formControlName="ruc" [(ngModel)]="rucSunat">
+                </mat-form-field>
 
-              <button
-                mat-fab
-                color="primary"
-                aria-label="Example icon button with a home icon"
-                (click)="buscarSunat()"
-              >
-                <mat-icon>search</mat-icon>
-              </button>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="2">
-              <mat-form-field appearance="fill" class="input-pago-lg">
-                <mat-label>Razón social</mat-label>
-                <input matInput type="text" formControlName="razonSocial"  [(ngModel)]="razon_social"/>
-              </mat-form-field>
-            </mat-grid-tile>
+                <button mat-fab color="primary" aria-label="Example icon button with a home icon"
+                  (click)="buscarSunat()">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2">
+                <mat-form-field appearance="fill" class="input-pago-lg">
+                  <mat-label>Razón social</mat-label>
+                  <input matInput type="text" formControlName="razonSocial" [(ngModel)]="razon_social">
+                </mat-form-field>
+              </mat-grid-tile>
 
-            <mat-grid-tile colspan="1">
-              <mat-form-field appearance="fill">
-                <mat-label>Celular</mat-label>
-                <input matInput type="text" formControlName="celularEmpresa" value="123456789" disabled />
-              </mat-form-field>
-            </mat-grid-tile>
-          </div>
-        </form>
+              <mat-grid-tile colspan="1">
+                <mat-form-field appearance="fill">
+                  <mat-label>Celular</mat-label>
+                  <input matInput type="text" formControlName="celularEmpresa" value="123456789">
+                </mat-form-field>
+              </mat-grid-tile>
+            </div>
+          </form>
         </mat-grid-list>
       </div>
       <div class="col-4">
@@ -332,86 +259,59 @@
           <mat-card-content *ngFor="let item of prueba">
             <mat-grid-list cols="6" rowHeight="25px">
               <mat-grid-tile colspan="2" rowspan="4">
-                <img
-                  mat-card-image
-                  src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                  alt="Photo of a Shiba Inu"
-                />
+                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                  alt="Photo of a Shiba Inu" />
               </mat-grid-tile>
               <mat-grid-tile colspan="4" rowspan="1">
                 <mat-card-title>descripcion</mat-card-title>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
-                <mat-card-subtitle class="align-left"
-                  >Cantidad</mat-card-subtitle
-                >
+                <mat-card-subtitle class="align-left">Cantidad</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
                 <mat-card-subtitle class="align-right">2</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
-                <mat-card-subtitle class="align-left"
-                  >Precio Unitario</mat-card-subtitle
-                >
+                <mat-card-subtitle class="align-left">Precio Unitario</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
-                <mat-card-subtitle class="align-right"
-                  >S/ 30.00</mat-card-subtitle
-                >
+                <mat-card-subtitle class="align-right">S/ 30.00</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
-                <mat-card-subtitle class="align-left"
-                  >Subtotal</mat-card-subtitle
-                >
+                <mat-card-subtitle class="align-left">Subtotal</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
-                <mat-card-subtitle class="align-right"
-                  >S/ 60.00</mat-card-subtitle
-                >
-              </mat-grid-tile> </mat-grid-list
-            ><br />
+                <mat-card-subtitle class="align-right">S/ 60.00</mat-card-subtitle>
+              </mat-grid-tile>
+            </mat-grid-list><br />
             <mat-divider></mat-divider>
           </mat-card-content>
         </mat-list>
         <mat-card-footer>
           <mat-grid-list cols="6" rowHeight="30px">
             <mat-grid-tile colspan="3">
-              <mat-card-subtitle class="totales align-left"
-                >TOTAL NORMAL:
+              <mat-card-subtitle class="totales align-left">TOTAL NORMAL:
               </mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="3">
-              <mat-card-subtitle class="totales align-right"
-                >S/ 123.00</mat-card-subtitle
-              >
+              <mat-card-subtitle class="totales align-right">S/ 123.00</mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="3">
-              <mat-card-subtitle class="totales align-left"
-                >DELIVERY:
+              <mat-card-subtitle class="totales align-left">DELIVERY:
               </mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="3">
-              <mat-card-subtitle class="totales align-right"
-                >S/ 0.00</mat-card-subtitle
-              >
+              <mat-card-subtitle class="totales align-right">S/ 0.00</mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="3">
-              <mat-card-subtitle class="totales align-left"
-                >TOTAL:
+              <mat-card-subtitle class="totales align-left">TOTAL:
               </mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="3">
-              <mat-card-subtitle class="totales align-right"
-                >S/ 123.00</mat-card-subtitle
-              >
+              <mat-card-subtitle class="totales align-right">S/ 123.00</mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="6" rowspan="2">
-              <button
-                type="button"
-                mat-flat-button
-                matStepperNext
-                color="primary"
-              >
+              <button type="button" mat-flat-button matStepperNext color="primary" (click)="banderas()">
                 Continuar
               </button>
             </mat-grid-tile>
@@ -429,9 +329,9 @@
       <mat-grid-tile colspan="2">
         <p class="align-left">Tienda: Online</p>
       </mat-grid-tile>
-      
+
       <mat-grid-tile colspan="2" *ngIf="!boleta">
-        <p class="align-left">Doc Cliente: RUC: {{ruc}}</p>
+        <p class="align-left">Doc Cliente: RUC: {{rucSunat}}</p>
       </mat-grid-tile>
       <mat-grid-tile colspan="2" *ngIf="!boleta">
         <p class="align-left">RAZON SOCIAL: {{razon_social}}</p>
