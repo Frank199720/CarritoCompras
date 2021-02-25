@@ -85,7 +85,7 @@ export class CompraComponent implements OnInit {
   distrito = new FormControl('', [Validators.required]);
   telefonoFijo = new FormControl('', [Validators.required]);
   celular = new FormControl('', [Validators.required]);
-
+  razonSocial = new FormControl('',[Validators.required]);
   cantidad = new FormControl('', [Validators.required]);
 
   //validar con Gard
@@ -105,18 +105,33 @@ export class CompraComponent implements OnInit {
       } else {
         this.showMessage('Error', validacion, 'error');
       }
+      this.bandLinear=true;
     } else {
+      this.bandLinear=true;
     }
   }
   ngOnInit(): void {
     let items = localStorage.getItem('arreglo');
     this.prueba = JSON.parse(items);
     this.firstFormGroup = this._formBuilder.group({
-      direccion: ['', Validators.required],
+      direccion: [this.AuthService.user.usu_direccion, Validators.required],
       departamento: ['', Validators.required],
       provincia: ['', Validators.required],
       distrito: ['', Validators.required],
     });
+    this.firstFormGroup.get('direccion').disable();
+    this.firstFormGroup.get('provincia').clearValidators();
+    this.secondFormControl=this._formBuilder.group({
+      cliente:['',Validators.required],
+      clienteEmpresa:['',Validators.required],
+      correoEmpresa:['',Validators.required],
+      celularEmpresa:['',Validators.required],
+      ruc:['',Validators.required],
+      correo:['',Validators.required],
+      dni:['',Validators.required],
+      celularPersona:['',Validators.required],
+      razonSocial:['',Validators.required]
+    })
   }
 
   aumentar() {
@@ -167,5 +182,9 @@ export class CompraComponent implements OnInit {
     this.fechaActual = dia+'/'+mes+'/'+this.anio_current;
 
    
+  }
+  validarSecond(band){
+    this.boleta=band;
+    this.secondFormControl.get('razonSocial').clearValidators();
   }
 }

@@ -1,4 +1,4 @@
-<mat-horizontal-stepper linear #stepper (selectionChange)="selectionChange()" [linear]="bandLinear">
+<mat-horizontal-stepper linear #stepper (selectionChange)="selectionChange()" >
   <mat-step>
     <ng-template matStepLabel>Bolsa de compra</ng-template>
     <mat-card *ngFor="let item of carService.data">
@@ -59,7 +59,7 @@
                   <input
                     matInput
                     type="text"
-                    [formControl]="direccion"
+                    formControlName="direccion"
                     [(ngModel)]="deliveryObject.del_calle"
                     required
                   />
@@ -73,7 +73,7 @@
                   <mat-label>Departamento</mat-label>
                   <select
                     matNativeControl
-                    [formControl]="departamento"
+                    formControlName="departamento"
                     [(ngModel)]="deliveryObject.del_deparment_id"
                     required
                   >
@@ -90,7 +90,7 @@
                   <mat-label>Provincia</mat-label>
                   <select
                     matNativeControl
-                    [formControl]="provincia"
+                    formControlName="provincia"
                     [(ngModel)]="deliveryObject.del_province_id"
                     required
                   >
@@ -107,7 +107,7 @@
                   <mat-label>Distrito</mat-label>
                   <select
                     matNativeControl
-                    [formControl]="distrito"
+                    formControlName="distrito"
                     [(ngModel)]="deliveryObject.del_district_id"
                     required
                   >
@@ -208,7 +208,7 @@
       </div>
     </div>
   </mat-step>
-  <mat-step [stepControl]="secondFormControl" [optional]=false>
+  <mat-step [stepControl]="secondFormControl">
     <ng-template matStepLabel>Pago</ng-template>
     <div class="row">
       <div class="col-8 div-hor">
@@ -222,7 +222,7 @@
                 mat-fab
                 color="primary"
                 aria-label="Example icon button with a home icon"
-                (click)="boleta = true"
+                (click)="validarSecond(true)"
               >
                 <mat-icon>person</mat-icon>
               </button>
@@ -235,19 +235,19 @@
                 mat-fab
                 color="primary"
                 aria-label="Example icon button with a home icon"
-                (click)="boleta = false"
+                (click)="validarSecond(false)"
               >
                 <mat-icon>corporate_fare</mat-icon>
               </button>
             </div>
             <p class="align-left">Factura</p>
           </mat-grid-tile>
-          <form [formGroup]="firstFormGroup">
+          <form [formGroup]="secondFormControl">
           <div *ngIf="boleta">
             <mat-grid-tile colspan="2">
               <mat-form-field appearance="fill" class="input-pago-lg">
                 <mat-label>Nombre cliente</mat-label>
-                <input matInput type="text" [(ngModel)]="nombreConcatenado" disabled />
+                <input matInput type="text" [(ngModel)]="nombreConcatenado" disabled formControlName="cliente"/>
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
@@ -257,21 +257,22 @@
                   matInput
                   type="email"
                   [(ngModel)]="usuario.usu_email"
+                  
+                  formControlName="correo"
                   disabled
-
                 />
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile colspan="1">
               <mat-form-field appearance="fill">
                 <mat-label>Doc cliente</mat-label>
-                <input matInput type="text"  [(ngModel)]="usuario.usu_dni" disabled />
+                <input matInput type="text"  [(ngModel)]="usuario.usu_dni" formControlName="dni" disabled />
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile colspan="1">
               <mat-form-field appearance="fill">
                 <mat-label>Celular</mat-label>
-                <input matInput type="text" [(ngModel)]="usuario.usu_celular" disabled />
+                <input matInput type="text" [(ngModel)]="usuario.usu_celular" formControlName="celularPersona" disabled />
               </mat-form-field>
             </mat-grid-tile>
           </div>
@@ -279,7 +280,7 @@
             <mat-grid-tile colspan="2">
               <mat-form-field appearance="fill" class="input-pago-lg">
                 <mat-label>Nombre representante</mat-label>
-                <input matInput type="text" value="nombre" [(ngModel)]="nombreConcatenado"  disabled />
+                <input matInput type="text" value="nombre" [(ngModel)]="nombreConcatenado" formControlName="clienteEmpresa" disabled />
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile colspan="2">
@@ -288,6 +289,7 @@
                 <input
                   matInput
                   type="email"
+                  formControlName="correoEmpresa"
                   [(ngModel)]="usuario.usu_email"
                   disabled
                 />
@@ -296,7 +298,7 @@
             <mat-grid-tile colspan="1">
               <mat-form-field appearance="fill">
                 <mat-label>Doc cliente</mat-label>
-                <input matInput type="text" placeholder="RUC: " [(ngModel)]="ruc"/>
+                <input matInput type="text" placeholder="RUC: " formControlName="ruc" [(ngModel)]="ruc"/>
               </mat-form-field>
 
               <button
@@ -311,14 +313,14 @@
             <mat-grid-tile colspan="2">
               <mat-form-field appearance="fill" class="input-pago-lg">
                 <mat-label>Razón social</mat-label>
-                <input matInput type="text" [(ngModel)]="razon_social"/>
+                <input matInput type="text" formControlName="razonSocial"  [(ngModel)]="razon_social"/>
               </mat-form-field>
             </mat-grid-tile>
 
             <mat-grid-tile colspan="1">
               <mat-form-field appearance="fill">
                 <mat-label>Celular</mat-label>
-                <input matInput type="text" value="123456789" disabled />
+                <input matInput type="text" formControlName="celularEmpresa" value="123456789" disabled />
               </mat-form-field>
             </mat-grid-tile>
           </div>
