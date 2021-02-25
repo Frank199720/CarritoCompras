@@ -8,12 +8,22 @@ import {
 } from '@angular/forms';
 import { CarService } from '../../services/car.service';
 import { Delivery } from '../../interfaces/delivery';
-import Swal from 'sweetalert2';
+
 import { HttpClient } from '@angular/common/http';
 import { GeneralService } from '../../services/general.service';
 import { AuthService } from '../../services/auth.service';
 import { Usuario } from '../../interfaces/usuario';
 import { User } from '../../interfaces/user';
+import { Compra } from '../../interfaces/compra';
+import { DetalleCompra } from '../../interfaces/detalle-compra';
+import { Provincia } from '../../interfaces/provincia';
+import { Department } from '../../interfaces/department';
+import { UsuarioService } from '../../services/usuario.service';
+import { UbicacionService } from '../../services/ubicacion.service';
+import { Distrito } from '../../interfaces/distrito';
+import { CompraService } from '../../services/compra.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-compra',
   templateUrl: './compra.component.html',
@@ -26,6 +36,9 @@ export class CompraComponent implements OnInit {
     private httpCliente: HttpClient,
     private GeneralService: GeneralService,
     private AuthService:AuthService,
+    private UbicacionService:UbicacionService,
+    private compraService:CompraService,
+    private router:Router
   ) {
     //this.formDireccion = this.createFormGroup();
     console.log(AuthService.user);
@@ -33,8 +46,11 @@ export class CompraComponent implements OnInit {
     this.getDateCurrent();
     this.firstFormGroup = this.createFormGroup1();
     this.secondFormControl = this.createFormGroup2();
+    this.obtenerDptos();
+    this.obtenerProvincias();
+    this.obtenerDistritos();
   }
-
+  public precioDelivery:number=10;
   /*firstFormGroup:FormGroup;
   form2:FormGroup;*/
 
@@ -74,20 +90,45 @@ export class CompraComponent implements OnInit {
   get dni() { return this.firstFormGroup.get('dni') }
   get celularPersona() { return this.firstFormGroup.get('celularPersona') }
   get razonSocial() { return this.firstFormGroup.get('razonSocial') }
-
-  public fechaActual:String;
+  public CabeceraCompra:Compra ={
+    com_comercio:null,
+    com_doi:null,
+    com_isdelivery:null,
+    com_fecha:null,
+    com_serie:null,
+    com_num:null,
+    com_total:null,
+    com_totalneto:null,
+    com_tipodoi:null,
+    com_periodo:null,
+    com_descuento:null,
+    com_ncom:null,
+    com_estado:null
+  }
+  public detalleCompra:DetalleCompra={
+    com_num:null,
+    dco_cantidad:null,
+    dco_subtotal:null,
+    dco_punitario:null,
+  
+  };
+    
+  public fechaActual:string;
   dateCurrent: Date = new Date();
   anio_current: string;
   current_date: string;
   public verificaPaso:boolean=false;
   public opcional :boolean = false;
+  public distrito_array:Distrito[];
+  public provincia_array:Provincia[];
+  public departamentos:Department[];
   public deliveryObject: Delivery = {
     del_precio: 10,
     del_fentrega: null,
     del_estado: 1,
-    del_deparment_id: null,
-    del_province_id: null,
-    del_district_id: null,
+    del_deparment_id: this.AuthService.user.department_id,
+    del_province_id: this.AuthService.user.province_id,
+    del_district_id: this.AuthService.user.district_id,
     del_calle: this.AuthService.user.usu_direccion,
   };
   public bandLinear: boolean = false;
@@ -218,6 +259,7 @@ export class CompraComponent implements OnInit {
         this.razon_social = res.razonSocial;
       });
   }
+  public periodo:string;
   getDateCurrent() {
     this.anio_current = this.dateCurrent.getFullYear().toString();
     console.log(this.dateCurrent.getDate());
@@ -229,6 +271,7 @@ export class CompraComponent implements OnInit {
       this.dateCurrent.getDate() >= 10
         ? this.dateCurrent.getDate().toString()
         : "0" + this.dateCurrent.getDate().toString();
+    this.periodo=this.anio_current+mes;
     this.fechaActual = dia+'/'+mes+'/'+this.anio_current;
   }
 
@@ -245,4 +288,79 @@ export class CompraComponent implements OnInit {
     console.log("form1: " + this.firstFormGroup.valid);
     console.log("form2: " + this.secondFormControl.valid);
   }
+  obtenerDptos(){
+    this.UbicacionService.getDepartamentos().subscribe((data:Department[])=>{
+      this.departamentos = data;
+    });
+      
+    }
+  
+  obtenerProvincias(){
+    this.UbicacionService.getProvincias(this.deliveryObject.del_deparment_id).subscribe((data:Provincia[])=>{
+      this.provincia_array = data;
+    });
+  }
+  obtenerDistritos(){
+    this.UbicacionService.getDistritos(this.deliveryObject.del_province_id).subscribe((data:Distrito[])=>{
+      this.distrito_array = data;
+    });
+  }
+  guardarCompra(){
+    this.CabeceraCompra.com_descuento=0;
+    this.CabeceraCompra.com_fecha=this.fechaActual;
+    this.CabeceraCompra.com_periodo=this.periodo;
+    this.CabeceraCompra.com_totalneto=this.carService.totalVenta+this.precioDelivery;
+    if(this.boleta) this.CabeceraCompra.ti_id=2;
+    else this.CabeceraCompra.ti_id=1;
+    this.CabeceraCompra.com_total=this.carService.totalVenta;
+    this.CabeceraCompra.usu_dni=this.AuthService.user.usu_dni;
+    if(this.boleta) {
+      this.CabeceraCompra.com_doi=this.usuario.usu_dni;
+      this.CabeceraCompra.com_tipodoi="DNI";
+    }else{
+      this.CabeceraCompra.com_doi=this.rucSunat;
+      this.CabeceraCompra.com_tipodoi="RUC";
+    }
+    if(this.delivery){
+      this.CabeceraCompra.com_isdelivery=1;
+    }else{
+      this.CabeceraCompra.com_isdelivery=0;
+    }
+    this.CabeceraCompra.com_estado="P123";
+    this.CabeceraCompra.pa_id=1;
+    var array=[];
+    array.push(this.CabeceraCompra);
+    this.carService.data.forEach(element => {
+      this.detalleCompra = ({
+        pro_id:element.pro_id,
+        dco_cantidad:element.pro_cantidad_elegida,
+        dco_subtotal:(element.pro_cantidad_elegida*element.pro_precio),
+        dco_punitario:element.pro_precio
+      })
+      array.push(this.detalleCompra);
+    });
+    
+    
+    
+    
+    if(this.delivery)
+    array.push(this.deliveryObject);
+    let json=JSON.stringify(array);
+    console.log(json);
+    this.compraService.guardarCompra(json).subscribe(()=>{
+        this.showMessage("Exito!","Compra realizada con exito",'success');
+        localStorage.removeItem('arreglo');
+        this.carService.addCarrito();
+        this.carService.actualizarVenta();
+        this.carService.numeroVentas=0;
+        this.carService.totalVenta=0;
+        this.router.navigateByUrl('/shop/principal');
+    },
+    (error)=>{
+      console.log(error);
+    })
+
+    
+  }
+  
 }

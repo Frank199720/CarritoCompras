@@ -24,7 +24,7 @@
           <mat-grid-tile colspan="1">
             <div class="example-button-container">
               <button mat-fab color="primary" aria-label="Example icon button with a home icon"
-                (click)="delivery = true ; bandLinear=false">
+                (click)="delivery = true ; bandLinear=false; precioDelivery=10">
                 <mat-icon>home</mat-icon>
               </button>
             </div>
@@ -33,7 +33,7 @@
           <mat-grid-tile colspan="1">
             <div class="example-button-container">
               <button mat-fab color="primary" aria-label="Example icon button with a home icon"
-                (click)="delivery = false; bandLinear=true">
+                (click)="delivery = false; bandLinear=true ; precioDelivery=0">
                 <mat-icon>location_on</mat-icon>
               </button>
             </div>
@@ -57,9 +57,9 @@
                 <mat-form-field appearance="fill">
                   <mat-label>Departamento</mat-label>
                   <select matNativeControl formControlName="departamento" [(ngModel)]="deliveryObject.del_deparment_id"
-                    required>
-                    <option value="1">poner</option>
-                    <option value="2">poner</option>
+                    required (change)="obtenerProvincias()">
+                    <option [value]="item.id" *ngFor="let item of departamentos">{{item.name}}</option>
+                    
                   </select>
                   <mat-error *ngIf="departamento.hasError('required')">Seleccione departamento</mat-error>
                 </mat-form-field>
@@ -68,9 +68,9 @@
                 <mat-form-field appearance="fill">
                   <mat-label>Provincia</mat-label>
                   <select matNativeControl formControlName="provincia" [(ngModel)]="deliveryObject.del_province_id"
-                    required>
-                    <option value="1">poner</option>
-                    <option value="2">poner</option>
+                    required (change)="obtenerDistritos()">
+                    <option [value]="item.id" *ngFor="let item of provincia_array">{{item.name}}</option>
+                    
                   </select>
                   <mat-error *ngIf="provincia.hasError('required')">Seleccione provincia</mat-error>
                 </mat-form-field>
@@ -80,8 +80,7 @@
                   <mat-label>Distrito</mat-label>
                   <select matNativeControl formControlName="distrito" [(ngModel)]="deliveryObject.del_district_id"
                     required>
-                    <option value="1">poner</option>
-                    <option value="2">poner</option>
+                    <option [value]="item.id" *ngFor="let item of distrito_array">{{item.name}}</option>
                   </select>
                   <mat-error *ngIf="distrito.hasError('required')">Seleccione distrito</mat-error>
                 </mat-form-field>
@@ -256,32 +255,32 @@
       </div>
       <div class="col-4">
         <mat-list>
-          <mat-card-content *ngFor="let item of prueba">
+          <mat-card-content *ngFor="let item of carService.data">
             <mat-grid-list cols="6" rowHeight="25px">
               <mat-grid-tile colspan="2" rowspan="4">
                 <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
                   alt="Photo of a Shiba Inu" />
               </mat-grid-tile>
               <mat-grid-tile colspan="4" rowspan="1">
-                <mat-card-title>descripcion</mat-card-title>
+                <mat-card-title>{{item.pro_nombre}}</mat-card-title>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
                 <mat-card-subtitle class="align-left">Cantidad</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
-                <mat-card-subtitle class="align-right">2</mat-card-subtitle>
+                <mat-card-subtitle class="align-right">{{item.pro_cantidad_elegida}}</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
                 <mat-card-subtitle class="align-left">Precio Unitario</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
-                <mat-card-subtitle class="align-right">S/ 30.00</mat-card-subtitle>
+                <mat-card-subtitle class="align-right">S/{{item.pro_precio}}</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
                 <mat-card-subtitle class="align-left">Subtotal</mat-card-subtitle>
               </mat-grid-tile>
               <mat-grid-tile colspan="2" rowspan="1">
-                <mat-card-subtitle class="align-right">S/ 60.00</mat-card-subtitle>
+                <mat-card-subtitle class="align-right">S/{{item.pro_precio*item.pro_cantidad_elegida}}</mat-card-subtitle>
               </mat-grid-tile>
             </mat-grid-list><br />
             <mat-divider></mat-divider>
@@ -294,21 +293,21 @@
               </mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="3">
-              <mat-card-subtitle class="totales align-right">S/ 123.00</mat-card-subtitle>
+              <mat-card-subtitle class="totales align-right">S/{{carService.totalVenta}}</mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="3">
               <mat-card-subtitle class="totales align-left">DELIVERY:
               </mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="3">
-              <mat-card-subtitle class="totales align-right">S/ 0.00</mat-card-subtitle>
+              <mat-card-subtitle class="totales align-right">S/{{precioDelivery}}</mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="3">
               <mat-card-subtitle class="totales align-left">TOTAL:
               </mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="3">
-              <mat-card-subtitle class="totales align-right">S/ 123.00</mat-card-subtitle>
+              <mat-card-subtitle class="totales align-right">S/{{(carService.totalVenta)+(precioDelivery)}} </mat-card-subtitle>
             </mat-grid-tile>
             <mat-grid-tile colspan="6" rowspan="2">
               <button type="button" mat-flat-button matStepperNext color="primary" (click)="banderas()">
@@ -365,8 +364,8 @@
     </mat-grid-list>
     <mat-divider></mat-divider>
     <mat-grid-list cols="12" rowHeight="30px">
-      <div *ngFor="let item of prueba">
-        <mat-grid-tile colspan="2"> 000001 </mat-grid-tile>
+      <div *ngFor="let item of carService.data">
+        <mat-grid-tile colspan="2"> 00000{{item.pro_id}} </mat-grid-tile>
         <mat-grid-tile colspan="5">
           <p class="align-left">{{ item.pro_nombre }}</p>
         </mat-grid-tile>
@@ -398,16 +397,16 @@
         <p class="align-left">DELIVERY</p>
       </mat-grid-tile>
       <mat-grid-tile colspan="3" class="totales">
-        <p class="align-right">S/ 0.00</p>
+        <p class="align-right">S/ {{precioDelivery}}</p>
       </mat-grid-tile>
       <mat-grid-tile colspan="3" class="totales">
         <p class="align-left">TOTAL</p>
       </mat-grid-tile>
       <mat-grid-tile colspan="3" class="totales">
-        <p class="align-right">S/ 500.00</p>
+        <p class="align-right">S/ {{(carService.totalVenta)+(precioDelivery)}}</p>
       </mat-grid-tile>
       <mat-grid-tile colspan="12" rowspan="2">
-        <button type="button" mat-flat-button matStepperNext color="primary">
+        <button type="button" mat-flat-button matStepperNext color="primary" (click)="guardarCompra()">
           Confirmar
         </button>
       </mat-grid-tile>
